@@ -2,3 +2,7 @@ node_modules/
 .env
 .env.*
 data/auth_info/
+
+# Ambientes internos e documentação de planejamento
+.agents/
+planos de implementação/
