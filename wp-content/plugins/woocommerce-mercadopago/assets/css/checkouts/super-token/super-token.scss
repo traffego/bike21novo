@@ -1,0 +1,6 @@
+// One stylesheet for canonical v2.1 and independently cached older JavaScript.
+@use 'index';
+// TODO(PSW-4853): remove v2 rules in the next Scripts release once js_version:1_2_11
+// stays near zero for several days after publication; v1/ remains a v2.1 URL alias.
+@use 'variants/v2' as v2;
+@use 'variants/v2.1' as v21;

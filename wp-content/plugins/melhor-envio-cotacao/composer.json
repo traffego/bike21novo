@@ -1,0 +1,46 @@
+{
+    "name": "melhorenvio/melhorenvio-cotation",
+    "description": "Plugin de cotações do Melhor Envio para WooCommerce",
+    "homepage": "https://www.melhorenvio.com.br",
+    "license": "GPLv3",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Melhor Envio",
+            "email": "contato@melhorenvio.com",
+            "homepage": "https://www.melhorenvio.com.br"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "MelhorEnvio\\": "src/",
+            "MelhorEnvio\\Controllers\\": "legacy/Controllers/",
+            "MelhorEnvio\\Models\\": "legacy/Models/",
+            "MelhorEnvio\\Interfaces\\": "legacy/core/interfaces/",
+            "MelhorEnvio\\Services\\": "legacy/Services/",
+            "MelhorEnvio\\Bases\\": "legacy/core/bases/",
+            "MelhorEnvio\\Helpers\\": "legacy/Helpers/",
+            "MelhorEnvio\\Factory\\": "legacy/Factory/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6",
+        "brain/monkey": "^2.6",
+        "mockery/mockery": "^1.6"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MelhorEnvio\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test:coverage": "phpunit --coverage-text"
+    },
+    "config": {
+        "platform": {
+            "php": "7.4.33"
+        },
+        "sort-packages": true
+    }
+}
