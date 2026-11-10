@@ -1,0 +1,283 @@
+/*
+Theme Name: Base Store
+Description: Tema filho sob medida para e-commerce de alta performance.
+Template: hello-elementor
+Version: 1.0.0
+Text Domain: base_store
+*/
+
+/* ==========================================================================
+   DESIGN SYSTEM TOKENS (CSS CUSTOM PROPERTIES)
+   ========================================================================== */
+
+:root {
+  /* 1. Cores de Marca & Acento */
+  --ds-amber-400: #FBBF24;
+  --ds-amber-500: #F59E0B;
+  --ds-amber-600: #D97706;
+  --ds-amber-700: #B45309;
+  --ds-amber-50:  #FFFBEB;
+
+  /* 2. Cores Neutras Escuras (Dark Mode / Topbar / High Contrast) */
+  --ds-zinc-950: #09090B;
+  --ds-zinc-900: #18181B;
+  --ds-zinc-800: #27272A;
+  --ds-zinc-700: #3F3F46;
+
+  /* 3. Cores Neutras Claras (Superfícies & Bordas) */
+  --ds-slate-50:  #F8FAFC;
+  --ds-slate-100: #F1F5F9;
+  --ds-slate-200: #E2E8F0;
+  --ds-slate-300: #CBD5E1;
+  --ds-slate-400: #94A3B8;
+  --ds-slate-500: #64748B;
+  --ds-slate-600: #475569;
+  --ds-slate-700: #334155;
+  --ds-slate-800: #1E293B;
+
+  /* 4. Cores Semânticas / Funcionais */
+  --ds-emerald-50:  #ECFDF5;
+  --ds-emerald-100: #D1FAE5;
+  --ds-emerald-200: #A7F3D0;
+  --ds-emerald-500: #10B981;
+  --ds-emerald-600: #059669;
+  --ds-emerald-700: #047857;
+
+  --ds-blue-50:  #EFF6FF;
+  --ds-blue-100: #DBEAFE;
+  --ds-blue-600: #2563EB;
+
+  --ds-rose-50:  #FFF1F2;
+  --ds-rose-600: #E11D48;
+
+  /* 5. Tipografia */
+  --ds-font-primary: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --ds-font-display: 'Inter', sans-serif;
+
+  /* Escala Modular */
+  --ds-text-xs:   0.75rem;   /* 12px */
+  --ds-text-sm:   0.875rem;  /* 14px */
+  --ds-text-base: 1rem;      /* 16px */
+  --ds-text-lg:   1.125rem;  /* 18px */
+  --ds-text-xl:   1.25rem;   /* 20px */
+  --ds-text-2xl:  1.5rem;    /* 24px */
+  --ds-text-3xl:  1.875rem;  /* 30px */
+  --ds-text-4xl:  2.25rem;   /* 36px */
+
+  /* Pesos */
+  --ds-font-regular:  400;
+  --ds-font-medium:   500;
+  --ds-font-semibold: 600;
+  --ds-font-bold:     700;
+  --ds-font-black:    800;
+
+  /* 6. Raios de Curvatura (Border Radius) */
+  --ds-radius-sm:   6px;
+  --ds-radius-md:   8px;
+  --ds-radius-lg:   12px;
+  --ds-radius-xl:   16px;
+  --ds-radius-2xl:  20px;
+  --ds-radius-3xl:  24px;
+  --ds-radius-pill: 9999px;
+
+  /* 7. Sombras (Box Shadows) */
+  --ds-shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --ds-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.08);
+  --ds-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+  --ds-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+
+  /* 8. Layout e Containers */
+  --ds-container-max: 1280px;
+  --ds-container-narrow: 768px;
+}
+
+/* ==========================================================================
+   REGRAS BASE & RESET COMPATÍVEL COM ELEMENTOR
+   ========================================================================== */
+
+body {
+  font-family: var(--ds-font-primary);
+  color: var(--ds-slate-700);
+  background-color: #FFFFFF;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Links Globais */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.15s ease-in-out;
+}
+
+/* ==========================================================================
+   CONTAINERS & LAYOUT PARA PÁGINAS PADRÃO E WOOCOMMERCE
+   ========================================================================== */
+
+body:not(.elementor-template-canvas):not(.elementor-template-full-width) .site-main {
+  max-width: var(--ds-container-max);
+  width: 100%;
+  margin-inline: auto;
+  padding: clamp(24px, 3vw, 40px) clamp(16px, 3vw, 24px) clamp(48px, 5vw, 72px);
+}
+
+body:not(.elementor-template-canvas):not(.elementor-template-full-width) .site-main > .page-header .entry-title {
+  max-width: none;
+  padding-inline: 0;
+  margin-block: 0 24px;
+  font-size: clamp(1.75rem, 2.5vw, 2.25rem);
+  font-weight: var(--ds-font-black);
+  color: var(--ds-zinc-900);
+  line-height: 1.2;
+}
+
+body:not(.elementor-template-canvas):not(.elementor-template-full-width) .site-main .alignwide {
+  margin-inline: 0;
+  max-width: 100%;
+}
+
+.site-main a.button,
+.site-main a.wp-element-button,
+.site-main a.wc-block-components-button,
+.site-main a.added_to_cart,
+.site-main .woocommerce-breadcrumb a,
+.site-main .woocommerce-LoopProduct-link {
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   BARRA DE BUSCA DE PRODUTOS WOOCOMMERCE (ESTILO CANÔNICO PÍLULA)
+   ========================================================================== */
+
+.widget_product_search {
+  width: 100%;
+}
+
+.woocommerce-product-search {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  margin: 0;
+}
+
+.woocommerce-product-search .ds-search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ds-slate-400);
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.woocommerce-product-search .search-field {
+  width: 100%;
+  height: 40px;
+  background-color: rgba(241, 245, 249, 0.85);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  border-radius: var(--ds-radius-pill);
+  padding: 8px 94px 8px 40px;
+  font-family: var(--ds-font-primary);
+  font-size: var(--ds-text-xs);
+  color: var(--ds-slate-800);
+  outline: none;
+  transition: all 0.2s ease-in-out;
+  box-shadow: none;
+}
+
+.woocommerce-product-search .search-field::placeholder {
+  color: var(--ds-slate-400);
+}
+
+.woocommerce-product-search .search-field:hover {
+  background-color: var(--ds-slate-100);
+}
+
+.woocommerce-product-search .search-field:focus {
+  border-color: var(--ds-amber-400);
+  background-color: #FFFFFF;
+}
+
+.woocommerce-product-search button[type="submit"] {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: var(--ds-zinc-900);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--ds-radius-pill);
+  padding: 6px 16px;
+  font-family: var(--ds-font-primary);
+  font-size: 11px;
+  font-weight: var(--ds-font-semibold);
+  line-height: 1.4;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.woocommerce-product-search button[type="submit"]:hover {
+  background-color: var(--ds-amber-400);
+  color: var(--ds-zinc-950);
+}
+
+/* ==========================================================================
+   CLASSES UTILITÁRIAS PARA ELEMENTOR & WOOCOMMERCE
+   ========================================================================== */
+
+.ds-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--ds-radius-pill);
+  background-color: var(--ds-zinc-900);
+  color: #FFFFFF !important;
+  font-size: var(--ds-text-xs);
+  font-weight: var(--ds-font-bold);
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  border: none;
+}
+
+.ds-btn-primary:hover {
+  background-color: var(--ds-amber-400);
+  color: var(--ds-zinc-950) !important;
+  transform: translateY(-1px);
+}
+
+.ds-btn-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--ds-radius-pill);
+  background-color: var(--ds-emerald-50);
+  border: 1px solid var(--ds-emerald-200);
+  color: var(--ds-emerald-700) !important;
+  font-size: var(--ds-text-xs);
+  font-weight: var(--ds-font-semibold);
+  transition: all 0.2s ease-in-out;
+}
+
+.ds-btn-whatsapp:hover {
+  background-color: var(--ds-emerald-100);
+}
+
+.ds-card {
+  background-color: #FFFFFF;
+  border: 1px solid var(--ds-slate-200);
+  border-radius: var(--ds-radius-3xl);
+  box-shadow: var(--ds-shadow-xs);
+  transition: all 0.25s ease-in-out;
+}
+
+.ds-card:hover {
+  box-shadow: var(--ds-shadow-md);
+  border-color: var(--ds-amber-400);
+}

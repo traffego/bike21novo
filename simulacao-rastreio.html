@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rastreamento de Pedido - Bike 21</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+  </style>
+  
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+  <!-- Componente Header Bike 21 (Importado dinamicamente de header.html) -->
+  <div id="site-header-container"></div>
+  <script src="assets/js/header-loader.js"></script>
+
+
+  <!-- Breadcrumbs WooCommerce -->
+  <div class="bg-white border-b border-slate-100 py-3">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 overflow-x-auto whitespace-nowrap">
+        <a href="simulacao-home.html" class="hover:text-zinc-900 transition-colors">Início</a>
+        <svg class="w-3.5 h-3.5 shrink-0 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        <span class="text-zinc-900 font-bold">Rastreamento de Pedido</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Conteúdo Principal -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10 flex-1 w-full">
+    
+    <div class="max-w-3xl mx-auto space-y-8">
+      
+      <div class="text-center space-y-2">
+        <span class="px-3 py-1 rounded-full bg-amber-400 text-zinc-950 font-black text-xs uppercase tracking-wider">
+          Rastreamento de Pedido
+        </span>
+        <h1 class="text-2xl sm:text-4xl font-extrabold text-zinc-900">
+          Rastreie sua Bicicleta em Tempo Real
+        </h1>
+        <p class="text-xs sm:text-sm text-slate-500">
+          Informe o número do seu pedido e o e-mail de faturamento cadastrado na compra.
+        </p>
+      </div>
+
+      <!-- Formulário de Rastreamento Rápido WooCommerce -->
+      <div class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-4">
+        <form onsubmit="event.preventDefault(); document.getElementById('resultadoRastreio').classList.remove('hidden');" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            <div>
+              <label class="block font-bold text-zinc-800 mb-1">ID do Pedido (WooCommerce)</label>
+              <input type="text" id="trackId" value="21409" required placeholder="Ex: 21409" class="w-full bg-slate-50 border border-slate-200 px-4 py-2.5 rounded-full font-bold text-xs focus:outline-none focus:border-amber-400">
+            </div>
+            <div>
+              <label class="block font-bold text-zinc-800 mb-1">E-mail de Faturamento</label>
+              <input type="email" id="trackEmail" value="carlos.mendes@email.com" required placeholder="seu@email.com" class="w-full bg-slate-50 border border-slate-200 px-4 py-2.5 rounded-full font-bold text-xs focus:outline-none focus:border-amber-400">
+            </div>
+          </div>
+          <button type="submit" class="w-full py-3.5 rounded-full bg-zinc-900 hover:bg-zinc-800 text-white font-extrabold text-xs transition-all shadow-md flex items-center justify-center gap-2">
+            <svg class="w-4 h-4 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" x2="16.65" y1="21" x2="16.65"/></svg>
+            Consultar Status de Envio
+          </button>
+        </form>
+      </div>
+
+      <!-- Resultado da Consulta (Linha do Tempo) -->
+      <div id="resultadoRastreio" class="bg-white rounded-3xl border border-slate-200/80 p-6 sm:p-8 shadow-xs space-y-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 pb-4 border-b border-slate-100">
+          <div>
+            <div class="text-xs font-bold text-slate-400 uppercase">Status do Pedido #21409</div>
+            <div class="text-lg font-black text-zinc-900">Em Preparação no Centro de Distribuição RJ</div>
+          </div>
+          <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold">
+            Código: BK21-RJ-21409BR
+          </span>
+        </div>
+
+        <!-- Linha do Tempo -->
+        <div class="relative pl-6 space-y-6 before:absolute before:left-3 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200">
+          <div class="relative flex items-start gap-3">
+            <div class="absolute -left-6 w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center ring-4 ring-white shadow-2xs">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <div>
+              <div class="font-bold text-xs text-zinc-900">Pedido Realizado e NF-e Emitida</div>
+              <div class="text-[11px] text-slate-400">09/11/2026 às 16:10</div>
+            </div>
+          </div>
+
+          <div class="relative flex items-start gap-3">
+            <div class="absolute -left-6 w-6 h-6 rounded-full bg-amber-400 text-zinc-950 flex items-center justify-center ring-4 ring-white shadow-2xs">
+              <span class="w-2 h-2 rounded-full bg-zinc-950 animate-pulse"></span>
+            </div>
+            <div>
+              <div class="font-bold text-xs text-zinc-900">Separação & Embalagem Anti-Impacto</div>
+              <div class="text-[11px] text-slate-400">Centro Logístico Bike 21 - Barra da Tijuca, RJ</div>
+            </div>
+          </div>
+
+          <div class="relative flex items-start gap-3 opacity-50">
+            <div class="absolute -left-6 w-6 h-6 rounded-full bg-slate-200 text-slate-400 flex items-center justify-center ring-4 ring-white">
+              <span class="w-2 h-2 rounded-full bg-slate-400"></span>
+            </div>
+            <div>
+              <div class="font-bold text-xs text-zinc-900">Coleta e Despacho Jadlog Package</div>
+              <div class="text-[11px] text-slate-400">Previsão: 10/11/2026</div>
+            </div>
+          </div>
+
+          <div class="relative flex items-start gap-3 opacity-50">
+            <div class="absolute -left-6 w-6 h-6 rounded-full bg-slate-200 text-slate-400 flex items-center justify-center ring-4 ring-white">
+              <span class="w-2 h-2 rounded-full bg-slate-400"></span>
+            </div>
+            <div>
+              <div class="font-bold text-xs text-zinc-900">Entrega Concluída no Destino</div>
+              <div class="text-[11px] text-slate-400">Previsão: 12/11 a 14/11/2026</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 flex justify-between items-center text-xs">
+          <a href="simulacao-obrigado.html" class="font-bold text-amber-600 hover:underline">Ver Detalhes do Pedido</a>
+          <a href="https://api.whatsapp.com/send?phone=5521999999999" target="_blank" class="text-slate-500 hover:text-zinc-900">Dúvidas sobre o frete? Fale conosco</a>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Componente Footer Bike 21 (Importado dinamicamente de footer.html) -->
+  <div id="site-footer-container"></div>
+  <script src="assets/js/footer-loader.js"></script>
+
+  
+</body>
+</html>

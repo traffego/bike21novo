@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulação Visual da Home - Bike 21 (Design System com Lucide Icons)</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
+  <!-- Componente Header Bike 21 (Importado dinamicamente de header.html) -->
+  <div id="site-header-container"></div>
+  <script src="assets/js/header-loader.js"></script>
+
+
+  <!-- 3. Hero Banner 100% Wide - Simulação Hero Banner Oficial Bike 21 (Sem margem/espaçamento com o Header) -->
+  <section id="smart-slider-hero" class="relative w-full overflow-hidden bg-zinc-950 text-white shadow-xl select-none group">
+    
+    
+
+    <!-- Banner Principal (Aspect Ratio 1024x380 com Link Direto para Ofertas/Catálogo) -->
+    <div class="relative w-full aspect-[16/7] sm:aspect-[1024/380] max-h-[640px] flex items-center justify-center bg-zinc-950 overflow-hidden">
+      <a href="simulacao-categoria.html" class="block w-full h-full relative overflow-hidden group/banner cursor-pointer" title="Bike 21 - Aproveite Ofertas Especiais com até 60% OFF - Confira Agora!">
+        <picture class="w-full h-full flex items-center justify-center">
+          <source srcset="assets/images/banner-ofertas-60off-2x.webp" media="(min-width: 1024px)" type="image/webp">
+          <source srcset="assets/images/banner-ofertas-60off.webp" type="image/webp">
+          <img src="assets/images/banner-ofertas-60off.jpg" 
+               alt="Bike 21 - Aproveite Ofertas Especiais com até 60% OFF - Confira Agora!" 
+               class="w-full h-full object-cover sm:object-contain lg:object-cover object-center transition-transform duration-700 group-hover/banner:scale-[1.012]" />
+        </picture>
+
+        <!-- Hotspot interativo sutil na área do botão "CONFIRA AGORA! >>" -->
+        <div class="absolute right-[4%] sm:right-[6%] lg:right-[7.5%] bottom-[8%] sm:bottom-[9%] w-[33%] sm:w-[26%] lg:w-[22%] h-[18%] sm:h-[21%] rounded-full ring-2 ring-amber-400/0 group-hover/banner:ring-amber-400/80 group-hover/banner:bg-amber-400/15 transition-all pointer-events-none"></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Conteúdo Principal da Home (Grid Centralizado) -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10 space-y-12">
+
+    <!-- 4. Quatro Pilares de Confiança (Cards Arredondados com Lucide) -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs flex items-center gap-4">
+        <div class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><circle cx="7" cy="18" r="2"/><path d="M15 18H9"/><circle cx="17" cy="18" r="2"/><path d="M16 8h4l3 3v5a1 1 0 0 1-1 1h-1"/></svg>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm text-zinc-900">Entrega Expressa Nacional</h4>
+          <p class="text-xs text-slate-500">Envio com rastreamento e seguro total para todo o Brasil.</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs flex items-center gap-4">
+        <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm text-zinc-900">Mercado Pago Oficial</h4>
+          <p class="text-xs text-slate-500">Parcelamento em até 12x ou Pix com desconto.</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs flex items-center gap-4">
+        <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm text-zinc-900">Montada & Regulada</h4>
+          <p class="text-xs text-slate-500">A bike chega pré-montada e pronta para o ajuste final.</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs flex items-center gap-4">
+        <div class="w-12 h-12 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm text-zinc-900">Garantia de Fábrica</h4>
+          <p class="text-xs text-slate-500">Nota fiscal emitida e garantia de quadros e peças.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Navegação por Categorias com Lucide Icons em SVG Puro -->
+    <section class="space-y-4">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Compre por Categoria</h2>
+          <p class="text-xs sm:text-sm text-slate-500">Encontre o equipamento ideal para o seu estilo de pedal</p>
+        </div>
+        <a href="#loja" class="text-xs font-bold text-amber-600 hover:text-amber-700 flex items-center gap-1">
+          Ver todas as categorias <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+        <!-- Cat 1: Mountain Bike -->
+        <a href="simulacao-produto.html" class="bg-white rounded-2xl p-4 text-center border border-slate-200/70 hover:border-amber-400 hover:shadow-md transition-all cursor-pointer group block">
+          <div class="w-14 h-14 mx-auto rounded-full bg-amber-50 group-hover:bg-amber-400 text-zinc-900 flex items-center justify-center transition-all">
+            <svg class="w-7 h-7 shrink-0 text-zinc-900 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>
+          </div>
+          <span class="block mt-2.5 font-bold text-xs text-zinc-800">Mountain Bike</span>
+          <span class="text-[11px] text-slate-400">Aro 29, Trilhas</span>
+        </a>
+
+        <!-- Cat 2: Speed -->
+        <div class="bg-white rounded-2xl p-4 text-center border border-slate-200/70 hover:border-amber-400 hover:shadow-md transition-all cursor-pointer group">
+          <div class="w-14 h-14 mx-auto rounded-full bg-slate-100 group-hover:bg-amber-400 text-zinc-900 flex items-center justify-center transition-all">
+            <svg class="w-7 h-7 shrink-0 text-zinc-900 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg>
+          </div>
+          <span class="block mt-2.5 font-bold text-xs text-zinc-800">Speed / Estrada</span>
+          <span class="text-[11px] text-slate-400">Asfalto e Giro</span>
+        </div>
+
+        <!-- Cat 3: Urbanas -->
+        <div class="bg-white rounded-2xl p-4 text-center border border-slate-200/70 hover:border-amber-400 hover:shadow-md transition-all cursor-pointer group">
+          <div class="w-14 h-14 mx-auto rounded-full bg-slate-100 group-hover:bg-amber-400 text-zinc-900 flex items-center justify-center transition-all">
+            <svg class="w-7 h-7 shrink-0 text-zinc-900 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg>
+          </div>
+          <span class="block mt-2.5 font-bold text-xs text-zinc-800">Urbanas</span>
+          <span class="text-[11px] text-slate-400">Dia a dia e Lazer</span>
+        </div>
+
+        <!-- Cat 4: Vestuário -->
+        <div class="bg-white rounded-2xl p-4 text-center border border-slate-200/70 hover:border-amber-400 hover:shadow-md transition-all cursor-pointer group">
+          <div class="w-14 h-14 mx-auto rounded-full bg-slate-100 group-hover:bg-amber-400 text-zinc-900 flex items-center justify-center transition-all">
+            <svg class="w-7 h-7 shrink-0 text-zinc-900 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>
+          </div>
+          <span class="block mt-2.5 font-bold text-xs text-zinc-800">Vestuário</span>
+          <span class="text-[11px] text-slate-400">Bretelles e Camisas</span>
+        </div>
+
+        <!-- Cat 5: Capacetes -->
+        <div class="bg-white rounded-2xl p-4 text-center border border-slate-200/70 hover:border-amber-400 hover:shadow-md transition-all cursor-pointer group">
+          <div class="w-14 h-14 mx-auto rounded-full bg-slate-100 group-hover:bg-amber-400 text-zinc-900 flex items-center justify-center transition-all">
+            <svg class="w-7 h-7 shrink-0 text-zinc-900 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12a10 10 0 0 1 20 0v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2z"/><path d="M4 14v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/><path d="M12 2v10"/></svg>
+          </div>
+          <span class="block mt-2.5 font-bold text-xs text-zinc-800">Capacetes</span>
+          <span class="text-[11px] text-slate-400">Segurança MIPS</span>
+        </div>
+
+        <!-- Cat 6: Componentes -->
+        <div class="bg-white rounded-2xl p-4 text-center border border-slate-200/70 hover:border-amber-400 hover:shadow-md transition-all cursor-pointer group">
+          <div class="w-14 h-14 mx-auto rounded-full bg-slate-100 group-hover:bg-amber-400 text-zinc-900 flex items-center justify-center transition-all">
+            <svg class="w-7 h-7 shrink-0 text-zinc-900 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </div>
+          <span class="block mt-2.5 font-bold text-xs text-zinc-800">Componentes</span>
+          <span class="text-[11px] text-slate-400">Shimano, Freios</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Vitrine de Produtos (Cards Arredondados com Ficha Técnica & Parcelamento) -->
+    <section class="space-y-5">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Bicicletas em Destaque</h2>
+          <p class="text-xs sm:text-sm text-slate-500">Pronta entrega no Rio com envio para todo o território nacional</p>
+        </div>
+        <div class="flex items-center gap-1.5 bg-slate-200/60 p-1 rounded-full text-xs font-semibold">
+          <button class="px-3.5 py-1 rounded-full bg-white text-zinc-900 shadow-xs">Todos</button>
+          <button class="px-3.5 py-1 rounded-full text-slate-600 hover:text-zinc-900">MTB Aro 29</button>
+          <button class="px-3.5 py-1 rounded-full text-slate-600 hover:text-zinc-900">Speed</button>
+          <button class="px-3.5 py-1 rounded-full text-slate-600 hover:text-zinc-900">Urbanas</button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+        <!-- Card Produto 1 -->
+        <div class="bg-white rounded-3xl p-4 border border-slate-200/80 shadow-sm hover:shadow-md hover:border-amber-400/80 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="relative bg-slate-100/70 rounded-2xl h-48 flex items-center justify-center overflow-hidden mb-3">
+              <span class="absolute top-2.5 left-2.5 z-10 px-2.5 py-1 rounded-full bg-zinc-900 text-amber-400 text-[10px] font-extrabold uppercase shadow-sm">
+                Mais Vendida
+              </span>
+              <button class="absolute top-2.5 right-2.5 z-10 w-8 h-8 rounded-full bg-white/90 text-slate-400 hover:text-red-500 hover:bg-white flex items-center justify-center shadow-xs transition-all">
+                <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+              </button>
+              <a href="simulacao-produto.html" class="flex items-center justify-center w-full h-full pt-6 pb-2 px-3"><img src="assets/images/bike-oggi-transparent.webp" alt="Bicicleta Bike 21" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-sm" /></a>
+            </div>
+
+            <!-- Ficha Rápida com Ícones Lucide -->
+            <div class="flex items-center gap-1.5 mb-2">
+              <span class="px-2 py-0.5 rounded-md bg-slate-100 text-[11px] font-medium text-slate-600 flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 shrink-0 inline text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1"/></svg> Aro 29
+              </span>
+              <span class="px-2 py-0.5 rounded-md bg-slate-100 text-[11px] font-medium text-slate-600 flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 shrink-0 inline text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 12.5-9.17 4.16a2 2 0 0 1-1.66 0L2 12.5"/><path d="m22 17.5-9.17 4.16a2 2 0 0 1-1.66 0L2 17.5"/></svg> Alum. 6061
+              </span>
+              <span class="px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 text-[11px] font-bold flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 shrink-0 inline text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg> 12V
+              </span>
+            </div>
+
+            <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">OGGI</span>
+            <h3 class="font-bold text-sm text-zinc-900 group-hover:text-amber-600 transition-colors line-clamp-1"><a href="simulacao-produto.html" class="hover:underline">Bicicleta Oggi Big Wheel 7.3</a></h3>
+            <p class="text-xs text-slate-500 line-clamp-2 mt-0.5">
+              Câmbio Shimano Deore 12v, trava remota de guidão e freios hidráulicos.
+            </p>
+          </div>
+
+          <div class="pt-4 mt-3 border-t border-slate-100">
+            <span class="text-xs text-slate-400 line-through">R$ 5.990,00</span>
+            <div class="flex items-baseline gap-1.5">
+              <span class="text-lg font-extrabold text-zinc-900">R$ 4.890,00</span>
+              <span class="text-[11px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-md">-18%</span>
+            </div>
+            <div class="text-[11px] text-slate-600 mt-0.5">
+              ou <strong class="text-zinc-900">12x de R$ 407,50</strong> sem juros
+            </div>
+
+            <a href="simulacao-produto.html" class="w-full mt-3 py-2.5 rounded-full bg-zinc-900 hover:bg-amber-400 text-white hover:text-zinc-950 font-bold text-xs transition-all flex items-center justify-center gap-2">
+              <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              Comprar Agora</a>
+          </div>
+        </div>
+
+        <!-- Card Produto 2 -->
+        <div class="bg-white rounded-3xl p-4 border border-slate-200/80 shadow-sm hover:shadow-md hover:border-amber-400/80 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="relative bg-slate-100/70 rounded-2xl h-48 flex items-center justify-center overflow-hidden mb-3">
+              <span class="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-full bg-amber-400 text-zinc-950 text-[10px] font-extrabold uppercase">
+                Lançamento
+              </span>
+              <button class="absolute top-2.5 right-2.5 z-10 w-8 h-8 rounded-full bg-white/90 text-slate-400 hover:text-red-500 hover:bg-white flex items-center justify-center shadow-xs transition-all">
+                <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+              </button>
+              <a href="simulacao-produto.html" class="flex items-center justify-center w-full h-full pt-6 pb-2 px-3"><img src="assets/images/bike-oggi-transparent.webp" alt="Bicicleta Bike 21" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-sm" /></a>
+            </div>
+
+            <div class="flex items-center gap-1.5 mb-2">
+              <span class="px-2 py-0.5 rounded-md bg-slate-100 text-[11px] font-medium text-slate-600 flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 shrink-0 inline text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1"/></svg> Aro 700c
+              </span>
+              <span class="px-2 py-0.5 rounded-md bg-slate-100 text-[11px] font-medium text-slate-600 flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 shrink-0 inline text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 12.5-9.17 4.16a2 2 0 0 1-1.66 0L2 12.5"/><path d="m22 17.5-9.17 4.16a2 2 0 0 1-1.66 0L2 17.5"/></svg> Full Carbon
+              </span>
+              <span class="px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 text-[11px] font-bold flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 shrink-0 inline text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg> 22V
+              </span>
+            </div>
+
+            <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">SENSE</span>
+            <h3 class="font-bold text-sm text-zinc-900 group-hover:text-amber-600 transition-colors line-clamp-1"><a href="simulacao-produto.html" class="hover:underline">Bicicleta Sense Criterium Factory</a></h3>
+            <p class="text-xs text-slate-500 line-clamp-2 mt-0.5">
+              Geometria endurance rápida, garfo full carbon e grupo Shimano 105.
+            </p>
+          </div>
+
+          <div class="pt-4 mt-3 border-t border-slate-100">
+            <span class="text-xs text-slate-400">&nbsp;</span>
+            <div class="flex items-baseline gap-1.5">
+              <span class="text-lg font-extrabold text-zinc-900">R$ 7.990,00</span>
+            </div>
+            <div class="text-[11px] text-slate-600 mt-0.5">
+              ou <strong class="text-zinc-900">12x de R$ 665,83</strong> sem juros
+            </div>
+
+            <a href="simulacao-produto.html" class="w-full mt-3 py-2.5 rounded-full bg-zinc-900 hover:bg-amber-400 text-white hover:text-zinc-950 font-bold text-xs transition-all flex items-center justify-center gap-2">
+              <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              Comprar Agora</a>
+          </div>
+        </div>
+
+        <!-- Card Produto 3 -->
+        <div class="bg-white rounded-3xl p-4 border border-slate-200/80 shadow-sm hover:shadow-md hover:border-amber-400/80 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="relative bg-slate-100/70 rounded-2xl h-48 flex items-center justify-center overflow-hidden mb-3">
+              <span class="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-extrabold uppercase">
+                Frete Grátis
+              </span>
+              <button class="absolute top-2.5 right-2.5 z-10 w-8 h-8 rounded-full bg-white/90 text-slate-400 hover:text-red-500 hover:bg-white flex items-center justify-center shadow-xs transition-all">
+                <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+              </button>
+              <a href="simulacao-produto.html" class="flex items-center justify-center w-full h-full pt-6 pb-2 px-3"><img src="assets/images/bike-oggi-transparent.webp" alt="Bicicleta Bike 21" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-sm" /></a>
+            </div>
+
+            <div class="flex items-center gap-1.5 mb-2">
+              <span class="px-2 py-0.5 rounded-md bg-slate-100 text-[11px] font-medium text-slate-600 flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 shrink-0 inline text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1"/></svg> Aro 29
+              </span>
+              <span class="px-2 py-0.5 rounded-md bg-slate-100 text-[11px] font-medium text-slate-600 flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 shrink-0 inline text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 12.5-9.17 4.16a2 2 0 0 1-1.66 0L2 12.5"/><path d="m22 17.5-9.17 4.16a2 2 0 0 1-1.66 0L2 17.5"/></svg> Alumínio
+              </span>
+              <span class="px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 text-[11px] font-bold flex items-center gap-1">
+                <svg class="w-3.5 h-3.5 shrink-0 inline text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg> 21V
+              </span>
+            </div>
+
+            <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">CALOI</span>
+            <h3 class="font-bold text-sm text-zinc-900 group-hover:text-amber-600 transition-colors line-clamp-1"><a href="simulacao-produto.html" class="hover:underline">Bicicleta Caloi Vulcan Urbana</a></h3>
+            <p class="text-xs text-slate-500 line-clamp-2 mt-0.5">
+              Ideal para deslocamento diário e ciclovias na orla e parques.
+            </p>
+          </div>
+
+          <div class="pt-4 mt-3 border-t border-slate-100">
+            <span class="text-xs text-slate-400 line-through">R$ 1.890,00</span>
+            <div class="flex items-baseline gap-1.5">
+              <span class="text-lg font-extrabold text-zinc-900">R$ 1.590,00</span>
+              <span class="text-[11px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-md">-15%</span>
+            </div>
+            <div class="text-[11px] text-slate-600 mt-0.5">
+              ou <strong class="text-zinc-900">10x de R$ 159,00</strong> sem juros
+            </div>
+
+            <a href="simulacao-produto.html" class="w-full mt-3 py-2.5 rounded-full bg-zinc-900 hover:bg-amber-400 text-white hover:text-zinc-950 font-bold text-xs transition-all flex items-center justify-center gap-2">
+              <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              Comprar Agora</a>
+          </div>
+        </div>
+
+        <!-- Card Produto 4: Capacete Specialized -->
+        <div class="bg-white rounded-3xl p-4 border border-slate-200/80 shadow-sm hover:shadow-md hover:border-amber-400/80 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="relative bg-slate-100/70 rounded-2xl h-48 flex items-center justify-center overflow-hidden mb-3">
+              <span class="absolute top-2.5 left-2.5 z-10 px-2.5 py-1 rounded-full bg-purple-100 text-purple-800 text-[10px] font-extrabold uppercase shadow-sm">
+                MIPS Tech
+              </span>
+              <button class="absolute top-2.5 right-2.5 z-10 w-8 h-8 rounded-full bg-white/90 text-slate-400 hover:text-red-500 hover:bg-white flex items-center justify-center shadow-xs transition-all">
+                <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+              </button>
+              <a href="simulacao-produto.html" class="flex items-center justify-center w-full h-full"><div class="w-20 h-20 rounded-full bg-white/80 flex items-center justify-center text-slate-700 shadow-xs">
+                <svg class="w-7 h-7 shrink-0 text-zinc-900 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12a10 10 0 0 1 20 0v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2z"/><path d="M4 14v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/><path d="M12 2v10"/></svg>
+              </div></a>
+            </div>
+
+            <div class="flex items-center gap-1.5 mb-2">
+              <span class="px-2 py-0.5 rounded-md bg-slate-100 text-[11px] font-medium text-slate-600">Tamanhos: M / G</span>
+              <span class="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-700 text-[11px] font-bold flex items-center gap-1">
+                <svg class="w-4 h-4 shrink-0 text-emerald-600 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg> Em Estoque
+              </span>
+            </div>
+
+            <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">SPECIALIZED</span>
+            <h3 class="font-bold text-sm text-zinc-900 group-hover:text-amber-600 transition-colors line-clamp-1"><a href="simulacao-produto.html" class="hover:underline">Capacete Specialized Align II MIPS</a></h3>
+            <p class="text-xs text-slate-500 line-clamp-2 mt-0.5">
+              Proteção contra impactos rotacionais com ajuste Dial SX micro-ajustável.
+            </p>
+          </div>
+
+          <div class="pt-4 mt-3 border-t border-slate-100">
+            <span class="text-xs text-slate-400">&nbsp;</span>
+            <div class="flex items-baseline gap-1.5">
+              <span class="text-lg font-extrabold text-zinc-900">R$ 380,00</span>
+            </div>
+            <div class="text-[11px] text-slate-600 mt-0.5">
+              ou <strong class="text-zinc-900">3x de R$ 126,66</strong> sem juros
+            </div>
+
+            <a href="simulacao-produto.html" class="w-full mt-3 py-2.5 rounded-full bg-zinc-900 hover:bg-amber-400 text-white hover:text-zinc-950 font-bold text-xs transition-all flex items-center justify-center gap-2">
+              <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              Comprar Agora</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 7. Seletor Interativo: Guia Rápido de Tamanho de Quadro (Bike Fit) -->
+    <section class="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200/70 rounded-3xl p-6 sm:p-10 shadow-xs">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+        <div class="md:col-span-7 space-y-3">
+          <span class="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-amber-700 bg-amber-100/80 px-3 py-1 rounded-full">
+            <svg class="w-4 h-4 shrink-0 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg> Dúvida no Tamanho da Bike?
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900">
+            Acerte o tamanho do quadro de primeira.
+          </h2>
+          <p class="text-sm text-slate-600 leading-relaxed">
+            Comprar o tamanho certo evita dores na coluna, melhora o rendimento e garante a sua segurança. Use nosso simulador básico ou fale com nosso mecânico.
+          </p>
+        </div>
+
+        <div class="md:col-span-5 bg-white p-5 rounded-2xl shadow-sm border border-amber-200/50 space-y-3">
+          <label class="block text-xs font-bold text-zinc-800">Selecione sua altura aproximada:</label>
+          <select class="w-full text-xs font-semibold bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-zinc-900 focus:outline-none focus:border-amber-400">
+            <option value="15">Entre 1,60m e 1,70m (Quadro 15" / S)</option>
+            <option value="17" selected>Entre 1,71m e 1,80m (Quadro 17" / M)</option>
+            <option value="19">Entre 1,81m e 1,90m (Quadro 19" / L)</option>
+            <option value="21">Acima de 1,90m (Quadro 21" / XL)</option>
+          </select>
+          <div class="p-3 bg-amber-50 rounded-xl text-xs text-amber-900 flex items-start gap-2">
+            <svg class="w-4 h-4 shrink-0 text-amber-600 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            <div>
+              <strong>Recomendação Bike 21:</strong> Para mountain bikes aro 29, o quadro <strong>17" (M)</strong> é o mais equilibrado para quem mede de 1,71m a 1,80m.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 8. Footer Organizado e Limpo -->
+    <!-- Componente Footer Bike 21 (Importado dinamicamente de footer.html) -->
+  <div id="site-footer-container"></div>
+  <script src="assets/js/footer-loader.js"></script>
+
+  <!-- Script de Interatividade Hero Slider Bike 21 -->
+  <script>
+    (function initHeroSlider() {
+      const slider = document.getElementById('smart-slider-hero');
+      if (!slider) return;
+
+      const slides = Array.from(slider.querySelectorAll('.ss-slide'));
+      if (slides.length <= 1) return; // Se houver banner único, dispensa rotação automática
+
+      const bullets = Array.from(slider.querySelectorAll('.ss-bullet'));
+      const counter = document.getElementById('ss-current-counter');
+      const progressBar = document.getElementById('ss-progress-bar');
+      const btnPrev = document.getElementById('ss-btn-prev');
+      const btnNext = document.getElementById('ss-btn-next');
+
+      let current = 0;
+      const total = slides.length;
+      const intervalMs = 5000;
+      let elapsed = 0;
+      const stepMs = 50;
+      let timer = null;
+      let isPaused = false;
+
+      function renderSlide(idx) {
+        current = (idx + total) % total;
+
+        slides.forEach((slide, i) => {
+          if (i === current) {
+            slide.classList.remove('opacity-0', 'translate-x-12', 'pointer-events-none', 'z-10');
+            slide.classList.add('opacity-100', 'translate-x-0', 'pointer-events-auto', 'z-20');
+          } else {
+            slide.classList.remove('opacity-100', 'translate-x-0', 'pointer-events-auto', 'z-20');
+            slide.classList.add('opacity-0', 'translate-x-12', 'pointer-events-none', 'z-10');
+          }
+        });
+
+        bullets.forEach((bullet, i) => {
+          if (i === current) {
+            bullet.className = 'ss-bullet w-7 h-2 rounded-full bg-amber-400 transition-all cursor-pointer';
+          } else {
+            bullet.className = 'ss-bullet w-2.5 h-2 rounded-full bg-white/40 hover:bg-white/70 transition-all cursor-pointer';
+          }
+        });
+
+        if (counter) {
+          counter.textContent = String(current + 1).padStart(2, '0');
+        }
+
+        elapsed = 0;
+        if (progressBar) progressBar.style.width = '0%';
+      }
+
+      function nextSlide() {
+        renderSlide(current + 1);
+      }
+
+      function prevSlide() {
+        renderSlide(current - 1);
+      }
+
+      function startTimer() {
+        if (timer) clearInterval(timer);
+        timer = setInterval(() => {
+          if (isPaused) return;
+          elapsed += stepMs;
+          const pct = Math.min(100, (elapsed / intervalMs) * 100);
+          if (progressBar) progressBar.style.width = pct + '%';
+          if (elapsed >= intervalMs) {
+            nextSlide();
+          }
+        }, stepMs);
+      }
+
+      if (btnNext) btnNext.addEventListener('click', () => { nextSlide(); startTimer(); });
+      if (btnPrev) btnPrev.addEventListener('click', () => { prevSlide(); startTimer(); });
+
+      bullets.forEach((b, i) => {
+        b.addEventListener('click', () => {
+          renderSlide(i);
+          startTimer();
+        });
+      });
+
+      // Pausa ao passar o mouse (padrão: Pause on Hover)
+      slider.addEventListener('mouseenter', () => { isPaused = true; });
+      slider.addEventListener('mouseleave', () => { isPaused = false; });
+
+      // Inicia timer
+      startTimer();
+    })();
+  </script>
+</body>
+</html>

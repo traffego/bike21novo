@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "bike21-elementor": {
+      "type": "stdio",
+      "command": "wp",
+      "args": [
+        "mcp-adapter",
+        "serve",
+        "--server=emcp-tools-server",
+        "--user=admin",
+        "--path=C:\\projetos\\bike21_novo"
+      ]
+    }
+  }
+}

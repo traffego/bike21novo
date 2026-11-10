@@ -6,3 +6,7 @@ data/auth_info/
 # Ambientes internos e documentação de planejamento
 .agents/
 planos de implementação/
+scratch/
+wp-content/uploads/wc-logs/
+
+

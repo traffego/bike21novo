@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultados da Busca - Bike 21</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+  </style>
+  
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+  <!-- Componente Header Bike 21 (Importado dinamicamente de header.html) -->
+  <div id="site-header-container"></div>
+  <script src="assets/js/header-loader.js"></script>
+
+
+  <!-- Breadcrumbs WooCommerce -->
+  <div class="bg-white border-b border-slate-100 py-3">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 overflow-x-auto whitespace-nowrap">
+        <a href="simulacao-home.html" class="hover:text-zinc-900 transition-colors">Início</a>
+        <svg class="w-3.5 h-3.5 shrink-0 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        <span class="text-zinc-900 font-bold">Resultados da Busca</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Conteúdo Principal -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-10 flex-1 w-full">
+    
+    <div class="space-y-8">
+      
+      <!-- Cabeçalho de Resultados -->
+      <div class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-xs space-y-4">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+          <div>
+            <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">Busca no E-commerce</span>
+            <h1 class="text-xl sm:text-2xl font-extrabold text-zinc-900">
+              Resultados para: <span class="text-amber-600 font-black">"Scott"</span>
+            </h1>
+          </div>
+          <div class="text-xs text-slate-500">
+            Encontrados <strong class="text-zinc-900">4 produtos</strong> disponíveis
+          </div>
+        </div>
+
+        <!-- Termos Mais Buscados -->
+        <div class="flex items-center gap-2 pt-2 border-t border-slate-100 overflow-x-auto text-xs">
+          <span class="text-slate-400 font-bold shrink-0">Mais buscados:</span>
+          <a href="simulacao-busca.html?q=spark" class="px-3 py-1 rounded-full bg-slate-100 hover:bg-amber-400 text-slate-700 hover:text-zinc-950 font-bold text-[11px] transition-all">Scott Spark</a>
+          <a href="simulacao-busca.html?q=oggi" class="px-3 py-1 rounded-full bg-slate-100 hover:bg-amber-400 text-slate-700 hover:text-zinc-950 font-bold text-[11px] transition-all">Oggi 7.3</a>
+          <a href="simulacao-busca.html?q=capacete" class="px-3 py-1 rounded-full bg-slate-100 hover:bg-amber-400 text-slate-700 hover:text-zinc-950 font-bold text-[11px] transition-all">Capacete MIPS</a>
+          <a href="simulacao-busca.html?q=carbono" class="px-3 py-1 rounded-full bg-slate-100 hover:bg-amber-400 text-slate-700 hover:text-zinc-950 font-bold text-[11px] transition-all">Quadro Carbono</a>
+        </div>
+      </div>
+
+      <!-- Grid de Resultados -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Card 1: Scott Spark RC World Cup EVO -->
+        <div class="bg-white rounded-3xl p-4 border border-slate-200/80 shadow-sm hover:shadow-md hover:border-amber-400/80 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="relative bg-slate-100/70 rounded-2xl h-48 flex items-center justify-center overflow-hidden mb-3">
+              <span class="absolute top-2.5 left-2.5 z-10 px-2.5 py-1 rounded-full bg-zinc-900 text-amber-400 text-[10px] font-extrabold uppercase shadow-sm">
+                Mais Vendida
+              </span>
+              <button class="absolute top-2.5 right-2.5 z-10 w-8 h-8 rounded-full bg-white/90 text-slate-400 hover:text-red-500 hover:bg-white flex items-center justify-center shadow-xs transition-all">
+                <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+              </button>
+              <a href="simulacao-produto.html" class="flex items-center justify-center w-full h-full pt-6 pb-2 px-3">
+                <img src="assets/images/bike-oggi-transparent.webp" alt="Scott Spark" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-sm" />
+              </a>
+            </div>
+
+            <div class="flex items-center gap-1.5 mb-2">
+              <span class="px-2 py-0.5 rounded-md bg-slate-100 text-[11px] font-medium text-slate-600">Aro 29</span>
+              <span class="px-2 py-0.5 rounded-md bg-slate-100 text-[11px] font-medium text-slate-600">Carbono HMX</span>
+              <span class="px-2 py-0.5 rounded-md bg-amber-50 text-amber-700 text-[11px] font-bold">12V SRAM AXS</span>
+            </div>
+
+            <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">SCOTT</span>
+            <h3 class="font-bold text-sm text-zinc-900 group-hover:text-amber-600 transition-colors line-clamp-1">
+              <a href="simulacao-produto.html" class="hover:underline">Scott Spark RC World Cup EVO</a>
+            </h3>
+            <p class="text-xs text-slate-500 line-clamp-2 mt-0.5">
+              Quadro carbono HMX integrado, suspensão RockShox SID 120mm.
+            </p>
+          </div>
+
+          <div class="pt-4 mt-3 border-t border-slate-100">
+            <span class="text-xs text-slate-400 line-through">R$ 5.990,00</span>
+            <div class="flex items-baseline gap-1.5">
+              <span class="text-lg font-extrabold text-zinc-900">R$ 4.890,00</span>
+              <span class="text-[11px] font-bold text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded-md">-18%</span>
+            </div>
+            <div class="text-[11px] text-slate-600 mt-0.5">
+              ou 12x de R$ 407,50 sem juros
+            </div>
+            <a href="simulacao-produto.html" class="w-full mt-3 py-2.5 rounded-full bg-zinc-900 hover:bg-amber-400 hover:text-zinc-950 text-white font-bold text-xs transition-all flex items-center justify-center gap-2">
+              Ver Produto
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 2: Scott Scale 970 -->
+        <div class="bg-white rounded-3xl p-4 border border-slate-200/80 shadow-sm hover:shadow-md hover:border-amber-400/80 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="relative bg-slate-100/70 rounded-2xl h-48 flex items-center justify-center overflow-hidden mb-3">
+              <span class="absolute top-2.5 left-2.5 z-10 px-2.5 py-1 rounded-full bg-blue-100 text-blue-800 text-[10px] font-extrabold uppercase shadow-sm">
+                Hardtail Pro
+              </span>
+              <a href="simulacao-produto.html" class="flex items-center justify-center w-full h-full pt-6 pb-2 px-3">
+                <img src="assets/images/bike-oggi-transparent.webp" alt="Scott Scale" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-sm" />
+              </a>
+            </div>
+
+            <div class="flex items-center gap-1.5 mb-2">
+              <span class="px-2 py-0.5 rounded-md bg-slate-100 text-[11px] font-medium text-slate-600">Aro 29</span>
+              <span class="px-2 py-0.5 rounded-md bg-slate-100 text-[11px] font-medium text-slate-600">Alum. Custom</span>
+            </div>
+
+            <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">SCOTT</span>
+            <h3 class="font-bold text-sm text-zinc-900 group-hover:text-amber-600 transition-colors line-clamp-1">
+              <a href="simulacao-produto.html" class="hover:underline">Scott Scale 970 Dark Grey</a>
+            </h3>
+            <p class="text-xs text-slate-500 line-clamp-2 mt-0.5">
+              Geometria de Copa do Mundo com cabeamento interno completo.
+            </p>
+          </div>
+
+          <div class="pt-4 mt-3 border-t border-slate-100">
+            <span class="text-xs text-slate-400 line-through">R$ 9.890,00</span>
+            <div class="flex items-baseline gap-1.5">
+              <span class="text-lg font-extrabold text-zinc-900">R$ 8.990,00</span>
+            </div>
+            <div class="text-[11px] text-slate-600 mt-0.5">
+              ou 12x de R$ 749,16 sem juros
+            </div>
+            <a href="simulacao-produto.html" class="w-full mt-3 py-2.5 rounded-full bg-zinc-900 hover:bg-amber-400 hover:text-zinc-950 text-white font-bold text-xs transition-all flex items-center justify-center gap-2">
+              Ver Produto
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 3: Scott Aspect 950 -->
+        <div class="bg-white rounded-3xl p-4 border border-slate-200/80 shadow-sm hover:shadow-md hover:border-amber-400/80 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="relative bg-slate-100/70 rounded-2xl h-48 flex items-center justify-center overflow-hidden mb-3">
+              <span class="absolute top-2.5 left-2.5 z-10 px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-extrabold uppercase shadow-sm">
+                Frete Grátis
+              </span>
+              <a href="simulacao-produto.html" class="flex items-center justify-center w-full h-full pt-6 pb-2 px-3">
+                <img src="assets/images/bike-oggi-transparent.webp" alt="Scott Aspect" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300 drop-shadow-sm" />
+              </a>
+            </div>
+
+            <div class="flex items-center gap-1.5 mb-2">
+              <span class="px-2 py-0.5 rounded-md bg-slate-100 text-[11px] font-medium text-slate-600">Aro 29</span>
+              <span class="px-2 py-0.5 rounded-md bg-slate-100 text-[11px] font-medium text-slate-600">Alumínio</span>
+            </div>
+
+            <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">SCOTT</span>
+            <h3 class="font-bold text-sm text-zinc-900 group-hover:text-amber-600 transition-colors line-clamp-1">
+              <a href="simulacao-produto.html" class="hover:underline">Scott Aspect 950 2026</a>
+            </h3>
+            <p class="text-xs text-slate-500 line-clamp-2 mt-0.5">
+              Câmbio Shimano e freios hidráulicos Tektro com trava de suspensão.
+            </p>
+          </div>
+
+          <div class="pt-4 mt-3 border-t border-slate-100">
+            <span class="text-xs text-slate-400">&nbsp;</span>
+            <div class="flex items-baseline gap-1.5">
+              <span class="text-lg font-extrabold text-zinc-900">R$ 4.290,00</span>
+            </div>
+            <div class="text-[11px] text-slate-600 mt-0.5">
+              ou 12x de R$ 357,50 sem juros
+            </div>
+            <a href="simulacao-produto.html" class="w-full mt-3 py-2.5 rounded-full bg-zinc-900 hover:bg-amber-400 hover:text-zinc-950 text-white font-bold text-xs transition-all flex items-center justify-center gap-2">
+              Ver Produto
+            </a>
+          </div>
+        </div>
+
+        <!-- Card 4: Capacete Scott Centric Plus MIPS -->
+        <div class="bg-white rounded-3xl p-4 border border-slate-200/80 shadow-sm hover:shadow-md hover:border-amber-400/80 transition-all flex flex-col justify-between group">
+          <div>
+            <div class="relative bg-slate-100/70 rounded-2xl h-48 flex items-center justify-center overflow-hidden mb-3">
+              <span class="absolute top-2.5 left-2.5 z-10 px-2.5 py-1 rounded-full bg-purple-100 text-purple-800 text-[10px] font-extrabold uppercase shadow-sm">
+                MIPS Tech
+              </span>
+              <div class="w-20 h-20 rounded-full bg-white/80 flex items-center justify-center text-slate-700 shadow-xs">
+                <svg class="w-7 h-7 text-zinc-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12a10 10 0 0 1 20 0v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2z"/><path d="M4 14v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-4"/><path d="M12 2v10"/></svg>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-1.5 mb-2">
+              <span class="px-2 py-0.5 rounded-md bg-slate-100 text-[11px] font-medium text-slate-600">Tam: M / G</span>
+            </div>
+
+            <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">SCOTT</span>
+            <h3 class="font-bold text-sm text-zinc-900 group-hover:text-amber-600 transition-colors line-clamp-1">
+              Capacete Scott Centric Plus MIPS
+            </h3>
+            <p class="text-xs text-slate-500 line-clamp-2 mt-0.5">
+              Usado pelos atletas campeões mundiais de Mountain Bike.
+            </p>
+          </div>
+
+          <div class="pt-4 mt-3 border-t border-slate-100">
+            <span class="text-xs text-slate-400">&nbsp;</span>
+            <div class="flex items-baseline gap-1.5">
+              <span class="text-lg font-extrabold text-zinc-900">R$ 1.290,00</span>
+            </div>
+            <div class="text-[11px] text-slate-600 mt-0.5">
+              ou 10x de R$ 129,00 sem juros
+            </div>
+            <a href="simulacao-produto.html" class="w-full mt-3 py-2.5 rounded-full bg-zinc-900 hover:bg-amber-400 hover:text-zinc-950 text-white font-bold text-xs transition-all flex items-center justify-center gap-2">
+              Ver Produto
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Componente Footer Bike 21 (Importado dinamicamente de footer.html) -->
+  <div id="site-footer-container"></div>
+  <script src="assets/js/footer-loader.js"></script>
+
+  
+</body>
+</html>

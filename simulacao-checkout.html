@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finalizar Compra - Bike 21 (Rio de Janeiro)</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
+  <!-- Componente Header Bike 21 (Importado dinamicamente de header.html) -->
+  <div id="site-header-container"></div>
+  <script src="assets/js/header-loader.js"></script>
+
+
+  <!-- 3. Breadcrumb de Navegação -->
+  <div class="bg-white border-b border-slate-100 py-3">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 overflow-x-auto whitespace-nowrap">
+        <a href="simulacao-home.html" class="hover:text-zinc-900">Início</a>
+        <svg class="w-3.5 h-3.5 shrink-0 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        <a href="simulacao-produto.html" class="hover:text-zinc-900 font-medium text-slate-700">Scott Spark RC World Cup EVO</a>
+        <svg class="w-3.5 h-3.5 shrink-0 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        <span class="text-zinc-900 font-bold">Finalização de Pedido (Checkout)</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- 4. Conteúdo Principal do Checkout em 2 Colunas -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8 flex-1 w-full">
+    
+    <!-- Barra de Progresso do Checkout -->
+    <div class="flex items-center justify-center gap-2 mb-8 text-xs font-bold">
+      <a href="simulacao-produto.html" class="flex items-center gap-1.5 text-emerald-600 hover:underline">
+        <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+        1. Produto Selecionado
+      </a>
+      <span class="w-8 h-0.5 bg-emerald-500"></span>
+      <span class="flex items-center gap-1.5 text-amber-700 bg-amber-100/70 px-3.5 py-1 rounded-full border border-amber-300">
+        <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+        2. Identificação & Pagamento
+      </span>
+      <span class="w-8 h-0.5 bg-slate-200"></span>
+      <span class="flex items-center gap-1.5 text-slate-400">
+        <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
+        3. Confirmação
+      </span>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+      <!-- COLUNA DA ESQUERDA: Formulários Fiscais (PF/PJ), Endereço e Gateway Mercado Pago (7 Colunas) -->
+      <div class="lg:col-span-7 space-y-6">
+
+        <!-- BLOCO 1: DADOS PESSOAIS & FISCAIS (SELETOR PF / PJ) -->
+        <section class="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 shadow-xs space-y-5">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <h2 class="text-base font-extrabold text-zinc-900 flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-zinc-900 text-white text-xs font-black flex items-center justify-center">1</span>
+              Identificação & Dados Fiscais (NF-e)
+            </h2>
+            <span class="text-[11px] font-semibold text-slate-400">Emissão de Nota Fiscal</span>
+          </div>
+
+          <!-- Seletor Pessoa Física vs Pessoa Jurídica -->
+          <div class="grid grid-cols-2 gap-3 p-1.5 bg-slate-100 rounded-2xl text-xs font-bold">
+            <label class="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl cursor-pointer transition-all bg-white text-zinc-950 shadow-xs" id="labelPF">
+              <input type="radio" name="tipoPessoa" value="pf" checked onchange="trocarTipoPessoa('pf')" class="w-4 h-4 accent-amber-500">
+              <span>Pessoa Física (CPF)</span>
+            </label>
+            <label class="flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl cursor-pointer transition-all text-slate-600 hover:text-zinc-950" id="labelPJ">
+              <input type="radio" name="tipoPessoa" value="pj" onchange="trocarTipoPessoa('pj')" class="w-4 h-4 accent-amber-500">
+              <span>Pessoa Jurídica (CNPJ)</span>
+            </label>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            
+            <div class="sm:col-span-2 space-y-1.5">
+              <label class="font-bold text-zinc-800">E-mail para confirmação e NF-e *</label>
+              <input 
+                type="email" 
+                value="cliente.ciclista@exemplo.com.br"
+                class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-2xl text-xs font-medium text-slate-800 focus:outline-none focus:border-amber-400 focus:bg-white transition-all"
+                placeholder="seu.email@exemplo.com.br"
+              />
+              <span class="text-[11px] text-slate-400">Enviaremos o código de rastreio e a NF-e neste endereço.</span>
+            </div>
+
+            <!-- CAMPOS PESSOA FÍSICA -->
+            <div id="camposPF" class="sm:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="space-y-1.5">
+                <label class="font-bold text-zinc-800">Nome *</label>
+                <input 
+                  type="text" 
+                  value="Rodrigo"
+                  class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-2xl text-xs font-medium text-slate-800 focus:outline-none focus:border-amber-400 focus:bg-white transition-all"
+                />
+              </div>
+
+              <div class="space-y-1.5">
+                <label class="font-bold text-zinc-800">Sobrenome *</label>
+                <input 
+                  type="text" 
+                  value="Silveira de Oliveira"
+                  class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-2xl text-xs font-medium text-slate-800 focus:outline-none focus:border-amber-400 focus:bg-white transition-all"
+                />
+              </div>
+
+              <div class="space-y-1.5">
+                <label class="font-bold text-zinc-800">CPF *</label>
+                <input 
+                  type="text" 
+                  value="123.456.789-00"
+                  class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-2xl text-xs font-medium text-slate-800 focus:outline-none focus:border-amber-400 focus:bg-white transition-all"
+                  placeholder="000.000.000-00"
+                />
+              </div>
+
+              <div class="space-y-1.5">
+                <label class="font-bold text-zinc-800">Data de Nascimento</label>
+                <input 
+                  type="date" 
+                  value="1988-06-15"
+                  class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-2xl text-xs font-medium text-slate-800 focus:outline-none focus:border-amber-400 focus:bg-white transition-all"
+                />
+              </div>
+            </div>
+
+            <!-- CAMPOS PESSOA JURÍDICA (PJ) -->
+            <div id="camposPJ" class="hidden sm:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="space-y-1.5">
+                <label class="font-bold text-zinc-800">CNPJ *</label>
+                <input 
+                  type="text" 
+                  value="12.345.678/0001-90"
+                  class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-2xl text-xs font-medium text-slate-800 focus:outline-none focus:border-amber-400 focus:bg-white transition-all"
+                  placeholder="00.000.000/0000-00"
+                />
+              </div>
+
+              <div class="space-y-1.5">
+                <label class="font-bold text-zinc-800 flex items-center justify-between">
+                  <span>Inscrição Estadual (IE) *</span>
+                  <label class="inline-flex items-center gap-1 font-normal text-slate-500 text-[10px] cursor-pointer">
+                    <input type="checkbox" id="chkIsentoIE" onchange="toggleIsentoIE()" class="accent-amber-500 rounded"> Isento
+                  </label>
+                </label>
+                <input 
+                  id="inputIE"
+                  type="text" 
+                  value="98.765.432-1"
+                  class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-2xl text-xs font-medium text-slate-800 focus:outline-none focus:border-amber-400 focus:bg-white transition-all"
+                  placeholder="Inscrição Estadual ou marque Isento"
+                />
+              </div>
+
+              <div class="space-y-1.5">
+                <label class="font-bold text-zinc-800">Razão Social *</label>
+                <input 
+                  type="text" 
+                  value="Pedal Carioca Esportes e Turismo Ltda"
+                  class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-2xl text-xs font-medium text-slate-800 focus:outline-none focus:border-amber-400 focus:bg-white transition-all"
+                />
+              </div>
+
+              <div class="space-y-1.5">
+                <label class="font-bold text-zinc-800">Nome Fantasia</label>
+                <input 
+                  type="text" 
+                  value="Pedal Carioca Club"
+                  class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-2xl text-xs font-medium text-slate-800 focus:outline-none focus:border-amber-400 focus:bg-white transition-all"
+                />
+              </div>
+
+              <div class="sm:col-span-2 space-y-1.5">
+                <label class="font-bold text-zinc-800">Nome do Responsável pelo Recebimento *</label>
+                <input 
+                  type="text" 
+                  value="Carlos Drummond - Gerente Operacional"
+                  class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-2xl text-xs font-medium text-slate-800 focus:outline-none focus:border-amber-400 focus:bg-white transition-all"
+                  placeholder="Nome de quem receberá a entrega na empresa"
+                />
+              </div>
+            </div>
+
+            <div class="sm:col-span-2 space-y-1.5">
+              <label class="font-bold text-zinc-800">WhatsApp / Celular com DDD *</label>
+              <input 
+                type="text" 
+                value="(21) 98877-6655"
+                class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-2xl text-xs font-medium text-slate-800 focus:outline-none focus:border-amber-400 focus:bg-white transition-all"
+                placeholder="(21) 90000-0000"
+              />
+            </div>
+
+          </div>
+        </section>
+
+
+        <!-- BLOCO 2: ENDEREÇO DE ENTREGA (VIACEP & TRANSPORTADORAS) -->
+        <section class="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 shadow-xs space-y-5">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <h2 class="text-base font-extrabold text-zinc-900 flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-zinc-900 text-white text-xs font-black flex items-center justify-center">2</span>
+              Endereço de Entrega
+            </h2>
+            <span class="text-[11px] font-semibold text-emerald-600 bg-emerald-50 px-2.5 py-0.5 rounded-full">Rio de Janeiro e Brasil</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-6 gap-4 text-xs">
+            
+            <div class="sm:col-span-3 space-y-1.5">
+              <label class="font-bold text-zinc-800">CEP *</label>
+              <div class="flex gap-2">
+                <input 
+                  id="checkoutCep"
+                  type="text" 
+                  value="22041-001"
+                  maxlength="9"
+                  class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-2xl text-xs font-bold text-slate-900 focus:outline-none focus:border-amber-400 focus:bg-white"
+                />
+                <button type="button" onclick="simularBuscaCep()" class="px-3.5 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-zinc-800 font-bold text-xs shrink-0 transition-all">
+                  Buscar
+                </button>
+              </div>
+            </div>
+
+            <div class="sm:col-span-3 flex items-end pb-1">
+              <span class="text-[11px] text-slate-500">Copacabana, Rio de Janeiro - RJ</span>
+            </div>
+
+            <div class="sm:col-span-4 space-y-1.5">
+              <label class="font-bold text-zinc-800">Logradouro / Rua *</label>
+              <input 
+                id="checkoutRua"
+                type="text" 
+                value="Avenida Atlântica"
+                class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-2xl text-xs font-medium text-slate-800 focus:outline-none focus:border-amber-400 focus:bg-white"
+              />
+            </div>
+
+            <div class="sm:col-span-2 space-y-1.5">
+              <label class="font-bold text-zinc-800">Número *</label>
+              <input 
+                type="text" 
+                value="1420"
+                class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-2xl text-xs font-medium text-slate-800 focus:outline-none focus:border-amber-400 focus:bg-white"
+              />
+            </div>
+
+            <div class="sm:col-span-3 space-y-1.5">
+              <label class="font-bold text-zinc-800">Complemento (Apto, Bloco)</label>
+              <input 
+                type="text" 
+                value="Apto 602"
+                class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-2xl text-xs font-medium text-slate-800 focus:outline-none focus:border-amber-400 focus:bg-white"
+                placeholder="Opcional"
+              />
+            </div>
+
+            <div class="sm:col-span-3 space-y-1.5">
+              <label class="font-bold text-zinc-800">Bairro *</label>
+              <input 
+                id="checkoutBairro"
+                type="text" 
+                value="Copacabana"
+                class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-2xl text-xs font-medium text-slate-800 focus:outline-none focus:border-amber-400 focus:bg-white"
+              />
+            </div>
+
+            <div class="sm:col-span-4 space-y-1.5">
+              <label class="font-bold text-zinc-800">Cidade *</label>
+              <input 
+                id="checkoutCidade"
+                type="text" 
+                value="Rio de Janeiro"
+                class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-2xl text-xs font-medium text-slate-800 focus:outline-none focus:border-amber-400 focus:bg-white"
+              />
+            </div>
+
+            <div class="sm:col-span-2 space-y-1.5">
+              <label class="font-bold text-zinc-800">Estado *</label>
+              <input 
+                id="checkoutEstado"
+                type="text" 
+                value="RJ"
+                class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-2xl text-xs font-medium text-slate-800 focus:outline-none focus:border-amber-400 focus:bg-white uppercase"
+              />
+            </div>
+
+          </div>
+        </section>
+
+
+        <!-- BLOCO 3: FORMA DE ENVIO -->
+        <section class="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 shadow-xs space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <h2 class="text-base font-extrabold text-zinc-900 flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-zinc-900 text-white text-xs font-black flex items-center justify-center">3</span>
+              Modalidade de Frete
+            </h2>
+            <span class="text-[11px] font-semibold text-slate-400">Embalagem anti-impacto</span>
+          </div>
+
+          <div class="space-y-3">
+            
+            <!-- Opção 1: Jadlog Package (Grátis) -->
+            <label class="shipping-option flex items-center justify-between p-4 rounded-2xl border-2 border-amber-400 bg-amber-50/40 cursor-pointer transition-all">
+              <div class="flex items-center gap-3">
+                <input type="radio" name="shippingMethod" value="jadlog" checked onchange="atualizarFrete(0, 'Jadlog Package')" class="w-4 h-4 accent-amber-500">
+                <div>
+                  <div class="font-extrabold text-xs text-zinc-900 flex items-center gap-2">
+                    Jadlog Express (Seguro Total)
+                    <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-black uppercase">Recomendado</span>
+                  </div>
+                  <div class="text-[11px] text-slate-500 mt-0.5">Prazo de 3 a 5 dias úteis com seguro de carga incluso</div>
+                </div>
+              </div>
+              <span class="font-black text-emerald-700 text-sm">GRÁTIS</span>
+            </label>
+
+            <!-- Opção 2: Azul Cargo Express -->
+            <label class="shipping-option flex items-center justify-between p-4 rounded-2xl border border-slate-200 bg-white hover:border-slate-300 cursor-pointer transition-all">
+              <div class="flex items-center gap-3">
+                <input type="radio" name="shippingMethod" value="azul" onchange="atualizarFrete(142.50, 'Azul Cargo Express')" class="w-4 h-4 accent-amber-500">
+                <div>
+                  <div class="font-extrabold text-xs text-zinc-900">Azul Cargo Express (Aéreo)</div>
+                  <div class="text-[11px] text-slate-500 mt-0.5">Prazo expresso de 1 a 2 dias úteis</div>
+                </div>
+              </div>
+              <span class="font-black text-zinc-900 text-xs">R$ 142,50</span>
+            </label>
+
+            <!-- Opção 3: Retirada na Loja Física Bike 21 RJ -->
+            <label class="shipping-option flex items-center justify-between p-4 rounded-2xl border border-slate-200 bg-white hover:border-slate-300 cursor-pointer transition-all">
+              <div class="flex items-center gap-3">
+                <input type="radio" name="shippingMethod" value="retirada" onchange="atualizarFrete(0, 'Retirada na Loja Física RJ')" class="w-4 h-4 accent-amber-500">
+                <div>
+                  <div class="font-extrabold text-xs text-zinc-900 flex items-center gap-1.5">
+                    Retirada na Loja Física (Barra da Tijuca - RJ)
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                  </div>
+                  <div class="text-[11px] text-slate-500 mt-0.5">Retire montada e com bike fit básico gratuito na loja</div>
+                </div>
+              </div>
+              <span class="font-black text-emerald-700 text-sm">GRÁTIS</span>
+            </label>
+
+          </div>
+        </section>
+
+
+        <!-- BLOCO 4: GATEWAY MERCADO PAGO TRANSPARENTE -->
+        <section class="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 shadow-xs space-y-5">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <h2 class="text-base font-extrabold text-zinc-900 flex items-center gap-2">
+              <span class="w-6 h-6 rounded-full bg-zinc-900 text-white text-xs font-black flex items-center justify-center">4</span>
+              Pagamento Seguro via Mercado Pago
+            </h2>
+            <div class="flex items-center gap-1 text-[11px] font-bold text-sky-700 bg-sky-50 px-2.5 py-1 rounded-full border border-sky-200">
+              <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+              Gateway Oficial
+            </div>
+          </div>
+
+          <!-- Abas de Pagamento (PIX / Cartão / Boleto) -->
+          <div class="grid grid-cols-3 gap-2 p-1.5 bg-slate-100 rounded-2xl text-xs font-bold">
+            <button 
+              id="tabBtnPix"
+              type="button" 
+              onclick="trocarAbaPagamento('pix')"
+              class="tab-pagamento py-3 px-2 rounded-xl bg-white text-zinc-950 shadow-xs flex flex-col sm:flex-row items-center justify-center gap-1.5 transition-all"
+            >
+              <svg class="w-4 h-4 shrink-0 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="m17 5-5-3-5 3"/><path d="m17 19-5 3-5-3"/></svg>
+              <span>PIX (-10%)</span>
+            </button>
+
+            <button 
+              id="tabBtnCartao"
+              type="button" 
+              onclick="trocarAbaPagamento('cartao')"
+              class="tab-pagamento py-3 px-2 rounded-xl text-slate-600 hover:text-zinc-950 flex flex-col sm:flex-row items-center justify-center gap-1.5 transition-all"
+            >
+              <svg class="w-4 h-4 shrink-0 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+              <span>Cartão de Crédito</span>
+            </button>
+
+            <button 
+              id="tabBtnBoleto"
+              type="button" 
+              onclick="trocarAbaPagamento('boleto')"
+              class="tab-pagamento py-3 px-2 rounded-xl text-slate-600 hover:text-zinc-950 flex flex-col sm:flex-row items-center justify-center gap-1.5 transition-all"
+            >
+              <svg class="w-4 h-4 shrink-0 text-slate-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4v16h16V4H4zm2 2h12v3H6V6zm0 5h12v2H6v-2zm0 4h7v3H6v-3z"/></svg>
+              <span>Boleto Bancário</span>
+            </button>
+          </div>
+
+          <!-- CONTEÚDO DA ABA 1: PIX MERCADO PAGO -->
+          <div id="conteudoPix" class="space-y-4 pt-2">
+            <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200/80 flex items-start gap-3">
+              <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center shrink-0 mt-0.5">
+                <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>
+              </div>
+              <div class="text-xs text-emerald-900 leading-relaxed">
+                <strong>Desconto de 10% aplicado automaticamente!</strong><br>
+                O código Pix com QR Code dinâmico será gerado imediatamente após clicar em <em>Finalizar Pedido</em>. A aprovação ocorre em menos de 10 segundos pelo Banco Central.
+              </div>
+            </div>
+
+            <!-- Mockup do QR Code e Pix Copia e Cola -->
+            <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row items-center gap-5">
+              <div class="w-32 h-32 bg-white p-2 rounded-xl border border-slate-200 shrink-0 flex items-center justify-center shadow-xs">
+                <svg class="w-28 h-28 text-zinc-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                  <path d="M14 14h3v3h-3z"></path>
+                  <path d="M20 14v3h-3"></path>
+                  <path d="M14 20h7"></path>
+                  <path d="M7 7h.01"></path>
+                  <path d="M18 7h.01"></path>
+                  <path d="M7 18h.01"></path>
+                </svg>
+              </div>
+              <div class="space-y-2.5 text-xs text-left w-full">
+                <span class="font-extrabold text-zinc-900 block">Chave Pix Copia e Cola (Simulação):</span>
+                <div class="p-2.5 rounded-xl bg-white border border-slate-200 font-mono text-[11px] text-slate-600 truncate select-all">
+                  00020126580014br.gov.bcb.pix0136bike21-rj-checkout-mercadopago52040000530398654054401.00
+                </div>
+                <button type="button" onclick="copiarPix()" class="px-4 py-1.5 rounded-full bg-zinc-900 hover:bg-zinc-800 text-white font-bold text-xs inline-flex items-center gap-1.5 transition-all">
+                  <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                  <span id="btnCopiarTexto">Copiar Código Pix</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- CONTEÚDO DA ABA 2: CARTÃO DE CRÉDITO -->
+          <div id="conteudoCartao" class="hidden space-y-4 pt-2 text-xs">
+            <div class="space-y-1.5">
+              <label class="font-bold text-zinc-800">Número do Cartão *</label>
+              <div class="relative">
+                <input 
+                  type="text" 
+                  maxlength="19"
+                  placeholder="0000 0000 0000 0000"
+                  class="w-full bg-slate-50 border border-slate-200 pl-4 pr-12 py-3 rounded-2xl text-xs font-medium text-slate-800 focus:outline-none focus:border-amber-400 focus:bg-white"
+                />
+                <div class="absolute right-3.5 top-3 flex items-center gap-1 text-slate-400">
+                  <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="space-y-1.5">
+              <label class="font-bold text-zinc-800">Nome impresso no Cartão *</label>
+              <input 
+                type="text" 
+                placeholder="Como está gravado no cartão"
+                class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-2xl text-xs font-medium text-slate-800 focus:outline-none focus:border-amber-400 focus:bg-white uppercase"
+              />
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div class="space-y-1.5">
+                <label class="font-bold text-zinc-800">Validade (MM/AA) *</label>
+                <input 
+                  type="text" 
+                  maxlength="5"
+                  placeholder="12/29"
+                  class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-2xl text-xs font-medium text-slate-800 focus:outline-none focus:border-amber-400 focus:bg-white"
+                />
+              </div>
+
+              <div class="space-y-1.5">
+                <label class="font-bold text-zinc-800">Código de Segurança (CVV) *</label>
+                <input 
+                  type="text" 
+                  maxlength="4"
+                  placeholder="123"
+                  class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-2xl text-xs font-medium text-slate-800 focus:outline-none focus:border-amber-400 focus:bg-white"
+                />
+              </div>
+            </div>
+
+            <div class="space-y-1.5">
+              <label class="font-bold text-zinc-800">Parcelamento no Mercado Pago *</label>
+              <select id="parcelasSelect" onchange="atualizarParcelamento()" class="w-full bg-slate-50 border border-slate-200 px-4 py-3 rounded-2xl text-xs font-bold text-zinc-900 focus:outline-none focus:border-amber-400 focus:bg-white">
+                <option value="1">1x de R$ 4.890,00 sem juros (À vista)</option>
+                <option value="2">2x de R$ 2.445,00 sem juros</option>
+                <option value="3">3x de R$ 1.630,00 sem juros</option>
+                <option value="6">6x de R$ 815,00 sem juros</option>
+                <option value="10">10x de R$ 489,00 sem juros</option>
+                <option value="12" selected>12x de R$ 407,50 sem juros (Recomendado)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- CONTEÚDO DA ABA 3: BOLETO -->
+          <div id="conteudoBoleto" class="hidden space-y-3 pt-2">
+            <div class="p-4 rounded-2xl bg-slate-100 border border-slate-200 text-xs text-slate-700 leading-relaxed">
+              <strong>Vencimento em 3 dias úteis.</strong><br>
+              O boleto bancário pode ser pago em qualquer agência bancária ou internet banking. A compensação leva até 72 horas úteis para liberação do envio.
+            </div>
+          </div>
+
+        </section>
+
+      </div>
+
+
+      <!-- COLUNA DA DIREITA: RESUMO DO PEDIDO STICKY (5 Colunas) -->
+      <div class="lg:col-span-5 space-y-6 lg:sticky lg:top-24">
+
+        <section class="bg-white rounded-3xl p-6 sm:p-7 border border-slate-200/80 shadow-md space-y-6">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+            <h3 class="text-base font-extrabold text-zinc-900">Resumo da Compra</h3>
+            <span class="text-xs font-bold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">1 Produto</span>
+          </div>
+
+          <!-- Item Comprado: Scott Spark RC World Cup EVO -->
+          <div class="flex items-start gap-4">
+            <div class="w-20 h-20 rounded-2xl bg-white border border-slate-200 p-1 flex items-center justify-center shrink-0 overflow-hidden shadow-xs">
+              <img src="assets/images/bike-oggi-transparent.webp" alt="Scott Spark RC World Cup EVO" class="w-full h-full object-contain" />
+            </div>
+            <div class="space-y-1 text-xs">
+              <span class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">SCOTT</span>
+              <h4 class="font-extrabold text-zinc-900 leading-snug">
+                Scott Spark RC World Cup EVO - 12V SRAM AXS
+              </h4>
+              <div class="text-[11px] text-slate-500 space-y-0.5">
+                <div>Tamanho: <strong class="text-zinc-800">M (17.5")</strong></div>
+                <div>Cor: <strong class="text-zinc-800">Prism Carbon / Amarelo Fluo</strong></div>
+              </div>
+              <div class="font-extrabold text-zinc-900 pt-1 text-sm">
+                R$ 4.890,00
+              </div>
+            </div>
+          </div>
+
+          <!-- Campo de Cupom de Desconto -->
+          <div class="pt-2 border-t border-slate-100">
+            <label class="text-xs font-bold text-zinc-800 block mb-1.5">Cupom de Desconto</label>
+            <div class="flex gap-2">
+              <input 
+                id="cupomInput"
+                type="text" 
+                placeholder="Ex: PRIMEIRABIKE" 
+                class="flex-1 bg-slate-50 border border-slate-200 px-4 py-2.5 rounded-full text-xs font-bold uppercase focus:outline-none focus:border-amber-400"
+              />
+              <button type="button" onclick="aplicarCupom()" class="px-4 py-2.5 rounded-full bg-zinc-900 hover:bg-zinc-800 text-white font-bold text-xs transition-all">
+                Aplicar
+              </button>
+            </div>
+            <div id="cupomMsg" class="hidden text-[11px] font-bold text-emerald-600 mt-1.5 flex items-center gap-1">
+              <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Cupom PRIMEIRABIKE aplicado (-R$ 100,00)!
+            </div>
+          </div>
+
+          <!-- Discriminativo Financeiro -->
+          <div class="space-y-2.5 text-xs pt-4 border-t border-slate-100">
+            <div class="flex justify-between text-slate-600">
+              <span>Subtotal</span>
+              <span id="valorSubtotal" class="font-bold text-zinc-900">R$ 4.890,00</span>
+            </div>
+
+            <div class="flex justify-between text-slate-600">
+              <span id="labelFrete">Frete (Jadlog Package)</span>
+              <span id="valorFrete" class="font-bold text-emerald-700">GRÁTIS</span>
+            </div>
+
+            <div id="linhaDescontoCupom" class="hidden flex justify-between text-emerald-600 font-bold">
+              <span>Desconto de Cupom</span>
+              <span id="valorDescontoCupom">- R$ 100,00</span>
+            </div>
+
+            <div id="linhaDescontoPix" class="flex justify-between text-emerald-600 font-bold">
+              <span>Desconto PIX (10%)</span>
+              <span id="valorDescontoPix">- R$ 489,00</span>
+            </div>
+
+            <div class="pt-3 border-t border-slate-200 flex justify-between items-baseline">
+              <div>
+                <span class="text-sm font-extrabold text-zinc-900 block">Total a Pagar</span>
+                <span id="condicaoTotal" class="text-[11px] text-slate-500 font-medium">À vista no PIX com 10% de desconto</span>
+              </div>
+              <div class="text-right">
+                <span id="valorTotal" class="text-2xl font-black text-zinc-900">R$ 4.401,00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Botão de Finalização Principal -->
+          <button 
+            type="button" 
+            onclick="finalizarPedido()"
+            class="w-full py-4 px-6 rounded-full bg-amber-400 hover:bg-amber-300 text-zinc-950 font-black text-sm sm:text-base uppercase tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+          >
+            <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+            Finalizar Pedido com Segurança
+          </button>
+
+          <!-- Compromissos e Selos de Qualidade Bike 21 -->
+          <div class="space-y-3 pt-3 border-t border-slate-100 text-[11px] text-slate-500">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 shrink-0 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              <span>Bike 100% conferida e protegida para envio no centro de expedição Bike 21 RJ.</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 shrink-0 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+              <span>Garantia oficial Scott do Brasil com emissão de NF-e nominal.</span>
+            </div>
+          </div>
+
+        </section>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- Modal de Confirmação de Pedido Realizado -->
+  <div id="modalSucesso" class="fixed inset-0 z-50 bg-zinc-950/80 backdrop-blur-xs hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl text-center space-y-5 animate-in fade-in zoom-in duration-200">
+      <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center shadow-xs">
+        <svg class="w-8 h-8 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg>
+      </div>
+
+      <div class="space-y-1.5">
+        <h3 class="text-xl font-extrabold text-zinc-900">Pedido #21409 Confirmado!</h3>
+        <div class="flex items-center gap-3 p-3 my-2 rounded-2xl bg-slate-50 border border-slate-200 text-left">
+          <div class="w-14 h-14 rounded-xl bg-white border border-slate-200 p-1 shrink-0 overflow-hidden">
+            <img src="assets/images/bike-oggi-transparent.webp" alt="Scott Spark RC World Cup" class="w-full h-full object-contain" />
+          </div>
+          <div class="text-xs">
+            <div class="font-extrabold text-zinc-900">Scott Spark RC World Cup EVO</div>
+            <div class="text-[11px] text-slate-500">Tam. M (17.5") | Prism Carbon</div>
+          </div>
+        </div>
+        <p class="text-xs text-slate-500 leading-relaxed">
+          Obrigado! Sua bicicleta já foi encaminhada para a nossa nosso centro de expedição e logística no Rio de Janeiro.
+        </p>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-left space-y-2">
+        <div class="flex justify-between">
+          <span class="text-slate-500">Status:</span>
+          <span class="font-bold text-emerald-600">Aguardando Pagamento</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">Valor Final:</span>
+          <span id="modalValorTotal" class="font-black text-zinc-900">R$ 4.401,00</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-slate-500">Transportadora:</span>
+          <span id="modalTransportadora" class="font-bold text-zinc-800">Jadlog Express (Seguro Total)</span>
+        </div>
+      </div>
+
+      <div class="space-y-2 pt-2">
+        <a href="simulacao-home.html" class="w-full py-3 px-6 rounded-full bg-zinc-900 hover:bg-zinc-800 text-white font-bold text-xs inline-flex items-center justify-center gap-2 transition-all">
+          Voltar para a Página Inicial
+        </a>
+        <button onclick="document.getElementById('modalSucesso').classList.add('hidden')" class="w-full py-2.5 text-xs text-slate-500 hover:text-zinc-800 font-semibold">
+          Fechar janela
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. Rodapé Institucional Completo (Idêntico ao da Home e Produto) -->
+    <!-- Componente Footer Bike 21 (Importado dinamicamente de footer.html) -->
+  <div id="site-footer-container"></div>
+  <script src="assets/js/footer-loader.js"></script>
+
+  <!-- Scripts Interativos do Checkout -->
+  <script>
+    let subtotal = 4890.00;
+    let valorFreteAtual = 0.00;
+    let descontoCupom = 0.00;
+    let metodoPagamento = 'pix';
+    let nomeFrete = 'Jadlog Package';
+
+    function trocarTipoPessoa(tipo) {
+      const camposPF = document.getElementById('camposPF');
+      const camposPJ = document.getElementById('camposPJ');
+      const labelPF = document.getElementById('labelPF');
+      const labelPJ = document.getElementById('labelPJ');
+
+      if (tipo === 'pf') {
+        camposPF.classList.remove('hidden');
+        camposPJ.classList.add('hidden');
+        labelPF.className = 'flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl cursor-pointer transition-all bg-white text-zinc-950 shadow-xs';
+        labelPJ.className = 'flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl cursor-pointer transition-all text-slate-600 hover:text-zinc-950';
+      } else {
+        camposPF.classList.add('hidden');
+        camposPJ.classList.remove('hidden');
+        labelPJ.className = 'flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl cursor-pointer transition-all bg-white text-zinc-950 shadow-xs';
+        labelPF.className = 'flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl cursor-pointer transition-all text-slate-600 hover:text-zinc-950';
+      }
+    }
+
+    function toggleIsentoIE() {
+      const chk = document.getElementById('chkIsentoIE');
+      const inputIE = document.getElementById('inputIE');
+      if (chk.checked) {
+        inputIE.value = 'ISENTO';
+        inputIE.disabled = true;
+        inputIE.classList.add('opacity-50');
+      } else {
+        inputIE.value = '';
+        inputIE.disabled = false;
+        inputIE.classList.remove('opacity-50');
+      }
+    }
+
+    function calcularTotal() {
+      let descPix = 0.00;
+      if (metodoPagamento === 'pix') {
+        descPix = (subtotal - descontoCupom) * 0.10;
+        document.getElementById('linhaDescontoPix').classList.remove('hidden');
+        document.getElementById('valorDescontoPix').innerText = '- R$ ' + descPix.toFixed(2).replace('.', ',');
+        document.getElementById('condicaoTotal').innerText = 'À vista no PIX com 10% de desconto';
+      } else {
+        document.getElementById('linhaDescontoPix').classList.add('hidden');
+        if (metodoPagamento === 'cartao') {
+          const parcelas = document.getElementById('parcelasSelect').value;
+          const totalCartao = subtotal - descontoCupom + valorFreteAtual;
+          const valorParcela = totalCartao / parcelas;
+          document.getElementById('condicaoTotal').innerText = parcelas + 'x de R$ ' + valorParcela.toFixed(2).replace('.', ',') + ' sem juros';
+        } else {
+          document.getElementById('condicaoTotal').innerText = 'À vista no Boleto Bancário';
+        }
+      }
+
+      const totalFinal = subtotal - descontoCupom + valorFreteAtual - descPix;
+      document.getElementById('valorTotal').innerText = 'R$ ' + totalFinal.toFixed(2).replace('.', ',');
+      document.getElementById('modalValorTotal').innerText = 'R$ ' + totalFinal.toFixed(2).replace('.', ',');
+    }
+
+    function trocarAbaPagamento(metodo) {
+      metodoPagamento = metodo;
+      
+      document.getElementById('conteudoPix').classList.add('hidden');
+      document.getElementById('conteudoCartao').classList.add('hidden');
+      document.getElementById('conteudoBoleto').classList.add('hidden');
+
+      document.querySelectorAll('.tab-pagamento').forEach(b => {
+        b.className = 'tab-pagamento py-3 px-2 rounded-xl text-slate-600 hover:text-zinc-950 flex flex-col sm:flex-row items-center justify-center gap-1.5 transition-all';
+      });
+
+      if (metodo === 'pix') {
+        document.getElementById('conteudoPix').classList.remove('hidden');
+        document.getElementById('tabBtnPix').className = 'tab-pagamento py-3 px-2 rounded-xl bg-white text-zinc-950 shadow-xs flex flex-col sm:flex-row items-center justify-center gap-1.5 transition-all';
+      } else if (metodo === 'cartao') {
+        document.getElementById('conteudoCartao').classList.remove('hidden');
+        document.getElementById('tabBtnCartao').className = 'tab-pagamento py-3 px-2 rounded-xl bg-white text-zinc-950 shadow-xs flex flex-col sm:flex-row items-center justify-center gap-1.5 transition-all';
+      } else if (metodo === 'boleto') {
+        document.getElementById('conteudoBoleto').classList.remove('hidden');
+        document.getElementById('tabBtnBoleto').className = 'tab-pagamento py-3 px-2 rounded-xl bg-white text-zinc-950 shadow-xs flex flex-col sm:flex-row items-center justify-center gap-1.5 transition-all';
+      }
+
+      calcularTotal();
+    }
+
+    function atualizarFrete(valor, nome) {
+      valorFreteAtual = valor;
+      nomeFrete = nome;
+      document.getElementById('labelFrete').innerText = 'Frete (' + nome + ')';
+      if (valor === 0) {
+        document.getElementById('valorFrete').innerText = 'GRÁTIS';
+        document.getElementById('valorFrete').className = 'font-bold text-emerald-700';
+      } else {
+        document.getElementById('valorFrete').innerText = 'R$ ' + valor.toFixed(2).replace('.', ',');
+        document.getElementById('valorFrete').className = 'font-bold text-zinc-900';
+      }
+      document.getElementById('modalTransportadora').innerText = nome;
+      calcularTotal();
+    }
+
+    function atualizarParcelamento() {
+      calcularTotal();
+    }
+
+    function aplicarCupom() {
+      const cod = document.getElementById('cupomInput').value.trim().toUpperCase();
+      if (cod === 'PRIMEIRABIKE') {
+        descontoCupom = 100.00;
+        document.getElementById('cupomMsg').classList.remove('hidden');
+        document.getElementById('linhaDescontoCupom').classList.remove('hidden');
+        calcularTotal();
+      } else {
+        alert('Cupom inválido. Experimente o cupom: PRIMEIRABIKE');
+      }
+    }
+
+    function copiarPix() {
+      const texto = "00020126580014br.gov.bcb.pix0136bike21-rj-checkout-mercadopago52040000530398654054401.00";
+      navigator.clipboard.writeText(texto).then(() => {
+        document.getElementById('btnCopiarTexto').innerText = 'Código Copiado!';
+        setTimeout(() => {
+          document.getElementById('btnCopiarTexto').innerText = 'Copiar Código Pix';
+        }, 3000);
+      });
+    }
+
+    function simularBuscaCep() {
+      alert('CEP 22041-001 validado: Av. Atlântica, Copacabana, Rio de Janeiro - RJ.');
+    }
+
+    function finalizarPedido() {
+      document.getElementById('modalSucesso').classList.remove('hidden');
+    }
+  </script>
+
+</body>
+</html>
