@@ -9,4 +9,8 @@ planos de implementação/
 scratch/
 wp-content/uploads/wc-logs/
 
+# Arquivos sensíveis de configuração e deploy
+wp-config.php
+deploy.php
+
 
