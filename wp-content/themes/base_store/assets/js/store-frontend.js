@@ -1216,6 +1216,25 @@
       skuEl.dataset.defaultSku = skuEl.textContent.trim();
     }
 
+    var mainMedia = document.querySelector('.ds-pdp-main-media');
+    if (mainMedia && mainImg) {
+      mainMedia.addEventListener('mousemove', function (e) {
+        var rect = mainMedia.getBoundingClientRect();
+        if (rect.width <= 0 || rect.height <= 0) return;
+        var x = ((e.clientX - rect.left) / rect.width) * 100;
+        var y = ((e.clientY - rect.top) / rect.height) * 100;
+        x = Math.max(0, Math.min(100, x));
+        y = Math.max(0, Math.min(100, y));
+        mainImg.style.transformOrigin = x + '% ' + y + '%';
+        mainImg.style.transform = 'scale(2.2)';
+      });
+
+      mainMedia.addEventListener('mouseleave', function () {
+        mainImg.style.transformOrigin = 'center center';
+        mainImg.style.transform = 'scale(1)';
+      });
+    }
+
     document.addEventListener('click', function (e) {
       var thumb = e.target.closest('.ds-pdp-thumb');
       if (thumb && mainImg) {

@@ -48,16 +48,18 @@ $war_title  = store_term( 'warranty_title' ) ?: 'Garantia Oficial';
 $war_desc   = store_term( 'guarantee_seal' );
 ?>
 <div class="ds-pdp-gallery-card">
-	<div class="ds-pdp-main-media">
+	<div class="ds-pdp-main-media" data-pdp-media-zoom>
 		<?php if ( $top_badge || $pricing['qualifies_free_shipping'] ) : ?>
 			<div class="ds-pdp-floating-badges">
 				<?php if ( $top_badge ) : ?>
 					<span class="ds-product-badge ds-product-badge--<?php echo esc_attr( $top_badge['variant'] ); ?>">
+						<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
 						<?php echo esc_html( $top_badge['text'] ); ?>
 					</span>
 				<?php endif; ?>
 				<?php if ( $pricing['qualifies_free_shipping'] && ( ! $top_badge || 'emerald' !== $top_badge['variant'] ) ) : ?>
-					<span class="ds-product-badge ds-product-badge--emerald">
+					<span class="ds-product-badge ds-product-badge--dark">
+						<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><circle cx="7" cy="18" r="2"/><path d="M15 18H9"/><circle cx="17" cy="18" r="2"/><path d="M16 8h4l3 3v5a1 1 0 0 1-1 1h-1"/></svg>
 						<?php echo esc_html( $ship_badge ); ?>
 					</span>
 				<?php endif; ?>
