@@ -17,6 +17,75 @@ if ( ! defined( 'CSBMW_PLUGIN_FILE' ) ) {
 }
 
 
+// Localização estrita brasileira para o script address-i18n.js do WooCommerce (impede que substitua rótulos por termos em inglês).
+add_filter(
+	'woocommerce_get_country_locale',
+	function ( array $locales ): array {
+		$locales['BR'] = array(
+			'address_1' => array(
+				'label'       => 'Logradouro / Rua',
+				'placeholder' => 'Rua, Avenida, Alameda...',
+				'required'    => true,
+			),
+			'address_2' => array(
+				'label'       => 'Complemento',
+				'label_class' => array(),
+				'placeholder' => 'Apartamento, bloco, sala (opcional)',
+				'required'    => false,
+			),
+			'city'      => array(
+				'label'       => 'Cidade',
+				'placeholder' => 'Cidade',
+				'required'    => true,
+			),
+			'state'     => array(
+				'label'       => 'Estado (UF)',
+				'required'    => true,
+			),
+			'postcode'  => array(
+				'label'       => 'CEP',
+				'placeholder' => '00000-000',
+				'required'    => true,
+			),
+			'phone'     => array(
+				'label'       => 'WhatsApp / Celular com DDD',
+				'placeholder' => '(00) 00000-0000',
+				'required'    => true,
+			),
+		);
+		return $locales;
+	},
+	999
+);
+
+add_filter(
+	'woocommerce_get_country_locale_default',
+	function ( array $fields ): array {
+		$fields['address_1']['label']       = 'Logradouro / Rua';
+		$fields['address_1']['placeholder'] = 'Rua, Avenida, Alameda...';
+		$fields['address_2']['label']       = 'Complemento';
+		$fields['address_2']['label_class'] = array();
+		$fields['address_2']['placeholder'] = 'Apartamento, bloco, sala (opcional)';
+		$fields['city']['label']            = 'Cidade';
+		$fields['state']['label']           = 'Estado (UF)';
+		$fields['postcode']['label']        = 'CEP';
+		$fields['postcode']['placeholder']  = '00000-000';
+		$fields['phone']['label']           = 'WhatsApp / Celular com DDD';
+		$fields['phone']['placeholder']     = '(00) 00000-0000';
+		return $fields;
+	},
+	999
+);
+
+// Localiza o rótulo do pacote de frete (evita "Shipment").
+add_filter(
+	'woocommerce_shipping_package_name',
+	function (): string {
+		return 'Entrega';
+	},
+	999
+);
+
 if ( ! function_exists( 'store_is_valid_cpf' ) ) {
 
 	/**
@@ -96,6 +165,17 @@ add_filter(
 				$b['billing_email']['label']       = 'E-mail para confirmação e NF-e';
 				$b['billing_email']['placeholder'] = 'seu.email@exemplo.com.br';
 				$b['billing_email']['class']       = array( 'form-row-wide', 'ds-checkout-field' );
+			}
+
+			if ( isset( $b['billing_phone'] ) ) {
+				$b['billing_phone']['priority']    = 12;
+				$b['billing_phone']['label']       = 'WhatsApp / Celular com DDD';
+				$b['billing_phone']['placeholder'] = '(00) 00000-0000';
+				$b['billing_phone']['class']       = array( 'form-row-wide', 'ds-checkout-field' );
+				$b['billing_phone']['custom_attributes'] = array(
+					'data-mask' => 'phone',
+					'maxlength' => '15',
+				);
 			}
 
 			$b['billing_person_type'] = array(
@@ -201,17 +281,6 @@ add_filter(
 				'class'       => array( 'form-row-wide', 'ds-pj-field', 'ds-required-pj', 'ds-checkout-field' ),
 			);
 
-			if ( isset( $b['billing_phone'] ) ) {
-				$b['billing_phone']['priority']    = 60;
-				$b['billing_phone']['label']       = 'WhatsApp / Celular com DDD';
-				$b['billing_phone']['placeholder'] = '(00) 00000-0000';
-				$b['billing_phone']['class']       = array( 'form-row-wide', 'ds-checkout-field' );
-				$b['billing_phone']['custom_attributes'] = array(
-					'data-mask' => 'phone',
-					'maxlength' => '15',
-				);
-			}
-
 			if ( isset( $b['billing_country'] ) ) {
 				$b['billing_country']['priority'] = 65;
 				$b['billing_country']['default']  = 'BR';
@@ -233,8 +302,8 @@ add_filter(
 			if ( isset( $b['billing_address_1'] ) ) {
 				$b['billing_address_1']['priority']    = 75;
 				$b['billing_address_1']['label']       = 'Logradouro / Rua';
-				$b['billing_address_1']['placeholder'] = 'Rua, Avenida...';
-				$b['billing_address_1']['class']       = array( 'form-row-first', 'ds-checkout-field' );
+				$b['billing_address_1']['placeholder'] = 'Rua, Avenida, Alameda...';
+				$b['billing_address_1']['class']       = array( 'form-row-first', 'ds-checkout-field', 'ds-field-street' );
 			}
 
 			$b['billing_number'] = array(
@@ -243,14 +312,15 @@ add_filter(
 				'placeholder' => 'Ex: 1420',
 				'required'    => true,
 				'priority'    => 78,
-				'class'       => array( 'form-row-last', 'ds-checkout-field' ),
+				'class'       => array( 'form-row-last', 'ds-checkout-field', 'ds-field-number' ),
 			);
 
 			if ( isset( $b['billing_address_2'] ) ) {
 				$b['billing_address_2']['priority']    = 80;
-				$b['billing_address_2']['label']       = 'Complemento (Apto, Bloco)';
-				$b['billing_address_2']['placeholder'] = 'Opcional';
+				$b['billing_address_2']['label']       = 'Complemento';
+				$b['billing_address_2']['placeholder'] = 'Apartamento, bloco, sala (opcional)';
 				$b['billing_address_2']['required']    = false;
+				$b['billing_address_2']['label_class'] = array();
 				$b['billing_address_2']['class']       = array( 'form-row-first', 'ds-checkout-field' );
 			}
 
@@ -264,20 +334,39 @@ add_filter(
 			);
 
 			if ( isset( $b['billing_city'] ) ) {
-				$b['billing_city']['priority'] = 85;
-				$b['billing_city']['label']    = 'Cidade';
-				$b['billing_city']['class']    = array( 'form-row-first', 'ds-checkout-field' );
+				$b['billing_city']['priority']    = 85;
+				$b['billing_city']['label']       = 'Cidade';
+				$b['billing_city']['placeholder'] = 'Sua cidade';
+				$b['billing_city']['class']       = array( 'form-row-first', 'ds-checkout-field', 'ds-field-city' );
 			}
 
 			if ( isset( $b['billing_state'] ) ) {
 				$b['billing_state']['priority'] = 90;
 				$b['billing_state']['label']    = 'Estado (UF)';
-				$b['billing_state']['class']    = array( 'form-row-last', 'ds-checkout-field' );
+				$b['billing_state']['class']    = array( 'form-row-last', 'ds-checkout-field', 'ds-field-state' );
 			}
+		}
+
+		if ( isset( $fields['order']['order_comments'] ) ) {
+			$fields['order']['order_comments']['label']       = 'Instruções para Entrega';
+			$fields['order']['order_comments']['placeholder'] = 'Ponto de referência, interfone, instruções para portaria (opcional)...';
+			$fields['order']['order_comments']['class']       = array( 'form-row-wide', 'ds-checkout-field' );
 		}
 
 		if ( isset( $fields['shipping'] ) ) {
 			$s = &$fields['shipping'];
+
+			if ( isset( $s['shipping_first_name'] ) ) {
+				$s['shipping_first_name']['label']       = 'Nome de quem receberá';
+				$s['shipping_first_name']['placeholder'] = 'Nome do destinatário';
+				$s['shipping_first_name']['class']       = array( 'form-row-first', 'ds-checkout-field' );
+			}
+
+			if ( isset( $s['shipping_last_name'] ) ) {
+				$s['shipping_last_name']['label']       = 'Sobrenome';
+				$s['shipping_last_name']['placeholder'] = 'Sobrenome';
+				$s['shipping_last_name']['class']       = array( 'form-row-last', 'ds-checkout-field' );
+			}
 
 			if ( isset( $s['shipping_country'] ) ) {
 				$s['shipping_country']['priority'] = 10;
@@ -297,9 +386,10 @@ add_filter(
 			}
 
 			if ( isset( $s['shipping_address_1'] ) ) {
-				$s['shipping_address_1']['priority'] = 40;
-				$s['shipping_address_1']['label']    = 'Logradouro / Rua';
-				$s['shipping_address_1']['class']    = array( 'form-row-first', 'ds-checkout-field' );
+				$s['shipping_address_1']['priority']    = 40;
+				$s['shipping_address_1']['label']       = 'Logradouro / Rua';
+				$s['shipping_address_1']['placeholder'] = 'Rua, Avenida, Alameda...';
+				$s['shipping_address_1']['class']       = array( 'form-row-first', 'ds-checkout-field', 'ds-field-street' );
 			}
 
 			$s['shipping_number'] = array(
@@ -308,13 +398,15 @@ add_filter(
 				'placeholder' => 'Ex: 1420',
 				'required'    => false,
 				'priority'    => 45,
-				'class'       => array( 'form-row-last', 'ds-checkout-field' ),
+				'class'       => array( 'form-row-last', 'ds-checkout-field', 'ds-field-number' ),
 			);
 
 			if ( isset( $s['shipping_address_2'] ) ) {
-				$s['shipping_address_2']['priority'] = 50;
-				$s['shipping_address_2']['label']    = 'Complemento';
-				$s['shipping_address_2']['class']    = array( 'form-row-first', 'ds-checkout-field' );
+				$s['shipping_address_2']['priority']    = 50;
+				$s['shipping_address_2']['label']       = 'Complemento';
+				$s['shipping_address_2']['label_class'] = array();
+				$s['shipping_address_2']['placeholder'] = 'Apartamento, bloco, sala (opcional)';
+				$s['shipping_address_2']['class']       = array( 'form-row-first', 'ds-checkout-field' );
 			}
 
 			$s['shipping_neighborhood'] = array(
@@ -335,22 +427,54 @@ add_filter(
 add_filter(
 	'woocommerce_form_field',
 	function ( string $field, string $key, array $args, $value ): string {
-		// Marca asterisco visual nos campos obrigatórios condicionalmente (PF/PJ).
-		if ( ! empty( $args['class'] ) && ( in_array( 'ds-required-pf', $args['class'], true ) || in_array( 'ds-required-pj', $args['class'], true ) ) ) {
-			$field = str_replace( '&nbsp;<span class="optional">(opcional)</span>', ' <abbr class="required" title="obrigatório">*</abbr>', $field );
-			$field = str_replace( '<span class="optional">(optional)</span>', '<abbr class="required" title="obrigatório">*</abbr>', $field );
+		// Remove "(optional)" / "(opcional)" do rótulo do seletor de pessoa e dos botões de rádio
+		if ( 'billing_person_type' === $key ) {
+			// Injeta ícones visuais elegantes nas opções de Pessoa Física e Jurídica
+			$user_icon = '<svg class="ds-radio-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> ';
+			$corp_icon = '<svg class="ds-radio-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg> ';
+			$field     = str_replace( '>Pessoa Física (CPF)', '>' . $user_icon . 'Pessoa Física (CPF)', $field );
+			$field     = str_replace( '>Pessoa Jurídica (CNPJ)', '>' . $corp_icon . 'Pessoa Jurídica (CNPJ)', $field );
 		}
 
-		// Adiciona botão de busca ViaCEP inline ao lado do CEP de cobrança/entrega.
+		// Remove spans automáticos de "(optional)" em inglês injetados pelo WooCommerce core
+		$field = preg_replace( '/&nbsp;<span class="optional">.*?<\/span>/i', '', $field );
+		$field = preg_replace( '/<span class="optional">.*?<\/span>/i', '', $field );
+
+		// Marca asterisco visual nos campos obrigatórios condicionalmente (PF/PJ).
+		if ( ! empty( $args['class'] ) && ( in_array( 'ds-required-pf', $args['class'], true ) || in_array( 'ds-required-pj', $args['class'], true ) ) ) {
+			if ( false === strpos( $field, 'class="required"' ) ) {
+				$field = preg_replace( '/(<\/label>)/', ' <abbr class="required" title="obrigatório">*</abbr>$1', $field, 1 );
+			}
+		}
+
+		// Adiciona botão de busca ViaCEP inline + link "Não sei meu CEP" ao lado do CEP de cobrança/entrega.
 		if ( in_array( $key, array( 'billing_postcode', 'shipping_postcode' ), true ) ) {
-			$target = 'billing_postcode' === $key ? 'billing' : 'shipping';
-			$btn    = '<button type="button" class="ds-btn ds-btn-soft ds-viacep-btn" data-viacep-trigger="' . esc_attr( $target ) . '">Buscar CEP</button>';
-			$field  = preg_replace(
+			$target    = 'billing_postcode' === $key ? 'billing' : 'shipping';
+			$btn       = '<button type="button" class="ds-btn ds-btn-soft ds-viacep-btn" data-viacep-trigger="' . esc_attr( $target ) . '">Buscar CEP</button>';
+			$help_link = '<a href="https://buscacepinter.correios.com.br/app/endereco/index.php" target="_blank" rel="noopener noreferrer" class="ds-cep-help-link">Não sei meu CEP</a>';
+			$field     = preg_replace(
 				'/(<span class="woocommerce-input-wrapper">)(.*?)(<\/span>)/s',
-				'$1<div class="ds-cep-inline-wrap">$2' . $btn . '</div><span class="ds-viacep-status" data-viacep-status="' . esc_attr( $target ) . '"></span>$3',
+				'$1<div class="ds-cep-inline-wrap">$2' . $btn . $help_link . '</div><span class="ds-viacep-status" data-viacep-status="' . esc_attr( $target ) . '"></span>$3',
 				$field,
 				1
 			);
+		}
+
+		// Micro-copy de conversão (dicas contextuais sob campos estratégicos, inseridas estritamente DENTRO do parágrafo do campo)
+		$hints = array(
+			'billing_email' => 'Enviaremos a confirmação do pedido e o código de rastreamento para este e-mail.',
+			'billing_phone' => 'Para notificações instantâneas e atualizações de entrega via WhatsApp.',
+			'billing_cpf'   => 'Exigido pela Receita Federal para emissão da sua Nota Fiscal Eletrônica (NF-e).',
+			'billing_cnpj'  => 'CNPJ da empresa para faturamento e emissão da Nota Fiscal corporativa.',
+		);
+
+		if ( isset( $hints[ $key ] ) ) {
+			$hint_html = '<span class="ds-field-hint">' . esc_html( $hints[ $key ] ) . '</span>';
+			if ( preg_match( '/(<\/span>)(\s*<\/p>)$/s', $field ) ) {
+				$field = preg_replace( '/(<\/span>)(\s*<\/p>)$/s', '$1' . $hint_html . '$2', $field );
+			} else {
+				$field .= $hint_html;
+			}
 		}
 
 		return $field;

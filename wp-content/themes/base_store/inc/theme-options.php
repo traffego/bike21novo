@@ -28,6 +28,7 @@ class Store_Glossary {
 		add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
 		add_action( 'update_option_' . self::OPTION_KEY, array( __CLASS__, 'flush_builder_cache' ) );
 		add_shortcode( 'store_term', array( __CLASS__, 'shortcode' ) );
+		add_shortcode( 'store_locations_rotator', array( __CLASS__, 'rotator_shortcode' ) );
 	}
 
 	/**
@@ -63,21 +64,33 @@ class Store_Glossary {
 		$glossary = self::all();
 
 		if ( 'store_location' === $key ) {
+			if ( ! empty( $glossary['store_location'] ) ) {
+				return (string) $glossary['store_location'];
+			}
 			$locations = self::locations();
 			return ! empty( $locations[0] ) ? (string) $locations[0] : '';
 		}
 
 		if ( 'store_cnpj' === $key ) {
+			if ( ! empty( $glossary['store_cnpj'] ) ) {
+				return (string) $glossary['store_cnpj'];
+			}
 			$cnpjs = self::cnpjs();
 			return ! empty( $cnpjs[0] ) ? (string) $cnpjs[0] : '';
 		}
 
 		if ( 'whatsapp_number' === $key ) {
+			if ( ! empty( $glossary['whatsapp_number'] ) ) {
+				return (string) $glossary['whatsapp_number'];
+			}
 			$wa = self::whatsapp();
 			return ! empty( $wa[0]['number'] ) ? (string) $wa[0]['number'] : '';
 		}
 
 		if ( 'whatsapp_url' === $key ) {
+			if ( ! empty( $glossary['whatsapp_url'] ) ) {
+				return (string) $glossary['whatsapp_url'];
+			}
 			$wa = self::whatsapp();
 			return ! empty( $wa[0]['url'] ) ? (string) $wa[0]['url'] : '';
 		}
@@ -216,6 +229,44 @@ class Store_Glossary {
 	}
 
 	/**
+	 * Retorna as redes sociais configuradas da loja.
+	 *
+	 * @return array
+	 */
+	public static function social(): array {
+		$glossary = self::all();
+		$social   = array();
+
+		if ( ! empty( $glossary['store_instagram'] ) ) {
+			$social['instagram'] = array(
+				'label'  => 'Instagram',
+				'url'    => $glossary['store_instagram'],
+				'handle' => $glossary['store_instagram_handle'] ?? '',
+			);
+		}
+		if ( ! empty( $glossary['store_facebook'] ) ) {
+			$social['facebook'] = array(
+				'label' => 'Facebook',
+				'url'   => $glossary['store_facebook'],
+			);
+		}
+		if ( ! empty( $glossary['store_youtube'] ) ) {
+			$social['youtube'] = array(
+				'label' => 'YouTube',
+				'url'   => $glossary['store_youtube'],
+			);
+		}
+		if ( ! empty( $glossary['store_tiktok'] ) ) {
+			$social['tiktok'] = array(
+				'label' => 'TikTok',
+				'url'   => $glossary['store_tiktok'],
+			);
+		}
+
+		return $social;
+	}
+
+	/**
 	 * Retorna o link direto do WhatsApp com mensagem contextual anexada.
 	 *
 	 * @param string $message Mensagem adicional.
@@ -287,6 +338,60 @@ class Store_Glossary {
 	}
 
 	/**
+	 * Shortcode [store_locations_rotator mode="topbar|footer" interval="3500"]
+	 * Alterna dinamicamente entre as lojas físicas cadastradas na loja.
+	 *
+	 * @param array|string $atts Atributos do shortcode.
+	 * @return string
+	 */
+	public static function rotator_shortcode( $atts ): string {
+		$args = shortcode_atts(
+			array(
+				'mode'     => 'topbar',
+				'interval' => '3500',
+			),
+			$atts,
+			'store_locations_rotator'
+		);
+
+		$locations = self::locations();
+		if ( empty( $locations ) ) {
+			$single = self::get( 'store_location' );
+			if ( ! empty( $single ) ) {
+				$locations = array( $single );
+			}
+		}
+
+		if ( empty( $locations ) ) {
+			return '';
+		}
+
+		$cnpjs = self::cnpjs();
+		$mode  = sanitize_html_class( $args['mode'] );
+		$time  = max( 2000, (int) $args['interval'] );
+
+		static $rotator_script_done = false;
+		$script = '';
+		if ( ! $rotator_script_done ) {
+			$rotator_script_done = true;
+			$script = '<script>(function(){function runRotators(){var elms=document.querySelectorAll(".ds-locations-rotator:not([data-active-loop])");for(var i=0;i<elms.length;i++){(function(box){box.setAttribute("data-active-loop","1");var list=box.querySelectorAll(".ds-rotator-item");if(list.length<=1)return;var ms=parseInt(box.getAttribute("data-interval")||"3500",10);var c=0;setInterval(function(){list[c].classList.remove("is-active");c=(c+1)%list.length;list[c].classList.add("is-active");},ms);})(elms[i]);}}if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",runRotators);}else{runRotators();}})();</script>';
+		}
+
+		$output = '<div class="ds-locations-rotator ds-locations-rotator--' . esc_attr( $mode ) . '" data-interval="' . esc_attr( (string) $time ) . '" aria-live="polite">';
+		foreach ( $locations as $idx => $loc ) {
+			$text = $loc;
+			if ( 'footer' === $mode && ! empty( $cnpjs[ $idx ] ) ) {
+				$text .= ' • CNPJ: ' . $cnpjs[ $idx ];
+			}
+			$active_cls = ( 0 === $idx ) ? ' is-active' : '';
+			$output .= '<span class="ds-rotator-item' . $active_cls . '"><span class="ds-rotator-pin" aria-hidden="true">📍</span> <span class="ds-rotator-text">' . esc_html( $text ) . '</span></span>';
+		}
+		$output .= '</div>' . $script;
+
+		return $output;
+	}
+
+	/**
 	 * Registra o menu administrativo no painel do WordPress.
 	 *
 	 * @return void
@@ -347,6 +452,11 @@ class Store_Glossary {
 			'store_full_address',
 			'store_hours',
 			'store_about_title',
+			'store_instagram',
+			'store_instagram_handle',
+			'store_facebook',
+			'store_youtube',
+			'store_tiktok',
 			'topbar_shipping',
 			'shipping_badge_label',
 			'shipping_modal_name',
@@ -673,6 +783,34 @@ class Store_Glossary {
 								<th scope="row"><label for="contact_subjects">Assuntos do Formulário de Contato (1 por linha)</label></th>
 								<td>
 									<textarea id="contact_subjects" name="<?php echo esc_attr( $opt ); ?>[contact_subjects]" rows="4" class="large-text"><?php echo esc_textarea( $val( 'contact_subjects' ) ); ?></textarea>
+								</td>
+							</tr>
+							<tr>
+								<th scope="row"><label for="store_instagram">Redes Sociais & Canais Digitais</label></th>
+								<td>
+									<div style="display: flex; flex-direction: column; gap: 10px; max-width: 650px;">
+										<div style="display: grid; grid-template-columns: 140px 1fr; gap: 10px; align-items: center;">
+											<span style="font-size: 12px; font-weight: 600; color: #475569;">Instagram URL:</span>
+											<input type="url" id="store_instagram" name="<?php echo esc_attr( $opt ); ?>[store_instagram]" value="<?php echo esc_attr( $val( 'store_instagram' ) ); ?>" class="large-text" placeholder="https://www.instagram.com/21.bikes/">
+										</div>
+										<div style="display: grid; grid-template-columns: 140px 1fr; gap: 10px; align-items: center;">
+											<span style="font-size: 12px; font-weight: 600; color: #475569;">Instagram @:</span>
+											<input type="text" id="store_instagram_handle" name="<?php echo esc_attr( $opt ); ?>[store_instagram_handle]" value="<?php echo esc_attr( $val( 'store_instagram_handle' ) ); ?>" class="regular-text" placeholder="@21.bikes">
+										</div>
+										<div style="display: grid; grid-template-columns: 140px 1fr; gap: 10px; align-items: center;">
+											<span style="font-size: 12px; font-weight: 600; color: #475569;">Facebook URL:</span>
+											<input type="url" id="store_facebook" name="<?php echo esc_attr( $opt ); ?>[store_facebook]" value="<?php echo esc_attr( $val( 'store_facebook' ) ); ?>" class="large-text" placeholder="https://facebook.com/...">
+										</div>
+										<div style="display: grid; grid-template-columns: 140px 1fr; gap: 10px; align-items: center;">
+											<span style="font-size: 12px; font-weight: 600; color: #475569;">YouTube URL:</span>
+											<input type="url" id="store_youtube" name="<?php echo esc_attr( $opt ); ?>[store_youtube]" value="<?php echo esc_attr( $val( 'store_youtube' ) ); ?>" class="large-text" placeholder="https://youtube.com/c/...">
+										</div>
+										<div style="display: grid; grid-template-columns: 140px 1fr; gap: 10px; align-items: center;">
+											<span style="font-size: 12px; font-weight: 600; color: #475569;">TikTok URL:</span>
+											<input type="url" id="store_tiktok" name="<?php echo esc_attr( $opt ); ?>[store_tiktok]" value="<?php echo esc_attr( $val( 'store_tiktok' ) ); ?>" class="large-text" placeholder="https://tiktok.com/@...">
+										</div>
+									</div>
+									<p class="description" style="margin-top: 6px;">Chaves: <code>store_instagram</code>, <code>store_instagram_handle</code>, <code>store_facebook</code>, <code>store_youtube</code>, <code>store_tiktok</code></p>
 								</td>
 							</tr>
 						</table>

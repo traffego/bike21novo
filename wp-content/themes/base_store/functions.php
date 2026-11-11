@@ -17,6 +17,8 @@ require_once get_stylesheet_directory() . '/inc/shipping-cep.php';
 require_once get_stylesheet_directory() . '/inc/contact-form.php';
 require_once get_stylesheet_directory() . '/inc/order-tracking.php';
 require_once get_stylesheet_directory() . '/inc/checkout-br.php';
+require_once get_stylesheet_directory() . '/inc/nav-menus.php';
+
 
 /**
  * Declara suporte nativo a recursos WooCommerce no tema filho.
