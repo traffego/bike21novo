@@ -21,16 +21,16 @@
 
 // ** Database settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'bike21novo_wp' );
+define( 'DB_NAME', 'u540810116_base_store' );
 
 /** Database username */
-define( 'DB_USER', 'root' );
+define( 'DB_USER', 'u540810116_base_store' );
 
 /** Database password */
-define( 'DB_PASSWORD', '' );
+define( 'DB_PASSWORD', 'Traffego444#' );
 
 /** Database hostname */
-define( 'DB_HOST', '127.0.0.1' );
+define( 'DB_HOST', ( isset( $_SERVER['HTTP_HOST'] ) && strpos( $_SERVER['HTTP_HOST'], 'bike21novo.local' ) !== false ) ? '31.97.208.47' : 'localhost' );
 
 /** Otimizações de Performance Local */
 define( 'WP_MEMORY_LIMIT', '512M' );
