@@ -1349,12 +1349,12 @@ body .ds-advantages-banner h2.ds-advantages-banner__title,
   background-color: #ffffff;
   border: 1px solid rgba(226, 232, 240, 0.85);
   border-radius: var(--ds-radius-2xl);
-  height: clamp(340px, 48vw, 480px);
+  height: clamp(380px, 50vw, 520px);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 16px 20px;
+  padding: 10px;
   cursor: zoom-in;
 }
 
@@ -1367,7 +1367,6 @@ body .ds-advantages-banner h2.ds-advantages-banner__title,
   mix-blend-mode: multiply;
   transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform, transform-origin;
-  filter: drop-shadow(0 10px 20px rgba(15, 23, 42, 0.08));
   user-select: none;
   pointer-events: none;
 }
