@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Wiki Operacional — Loja Bike 21 (Manual Completo do Cliente)</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-alt: #f1f5f9;
+      --sidebar-bg: #09090b;
+      --sidebar-border: #27272a;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --text-light: #94a3b8;
+      --border: #e2e8f0;
+      --accent: #f59e0b;
+      --accent-soft: #fef3c7;
+      --accent-dark: #b45309;
+      --dark: #18181b;
+      --blue: #2563eb;
+      --blue-soft: #eff6ff;
+      --green: #059669;
+      --green-soft: #ecfdf5;
+      --red: #dc2626;
+      --red-soft: #fef2f2;
+      --radius: 12px;
+      --radius-sm: 8px;
+      --shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    /* Layout */
+    .wiki-shell {
+      display: grid;
+      grid-template-columns: 290px 1fr;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .wiki-sidebar {
+      background: var(--sidebar-bg);
+      color: #f4f4f5;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      border-right: 1px solid var(--sidebar-border);
+      display: flex;
+      flex-direction: column;
+      z-index: 40;
+    }
+
+    .sidebar-brand {
+      padding: 22px 20px 16px;
+      border-bottom: 1px solid var(--sidebar-border);
+    }
+
+    .sidebar-brand__badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--accent);
+      color: #09090b;
+      padding: 3px 9px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+
+    .sidebar-brand h1 {
+      margin: 0;
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+    }
+
+    .sidebar-brand p {
+      margin: 4px 0 0;
+      font-size: 12.5px;
+      color: #a1a1aa;
+    }
+
+    .sidebar-search {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--sidebar-border);
+    }
+
+    .sidebar-search input {
+      width: 100%;
+      background: #18181b;
+      border: 1px solid #3f3f46;
+      color: #ffffff;
+      border-radius: var(--radius-sm);
+      padding: 9px 12px;
+      font-size: 13.5px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .sidebar-search input:focus {
+      border-color: var(--accent);
+    }
+
+    .sidebar-search input::placeholder {
+      color: #71717a;
+    }
+
+    .sidebar-nav {
+      padding: 12px 10px 24px;
+      flex: 1;
+    }
+
+    .nav-group-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #71717a;
+      padding: 12px 12px 6px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      color: #d4d4d8;
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 500;
+      transition: background 0.15s, color 0.15s;
+      margin-bottom: 2px;
+    }
+
+    .nav-link:hover,
+    .nav-link.is-active {
+      background: #27272a;
+      color: #ffffff;
+    }
+
+    .nav-link.is-active {
+      border-left: 3px solid var(--accent);
+      padding-left: 9px;
+      font-weight: 700;
+    }
+
+    .nav-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      min-width: 18px;
+    }
+
+    .sidebar-footer {
+      padding: 14px 16px;
+      border-top: 1px solid var(--sidebar-border);
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn-sidebar {
+      flex: 1;
+      background: #27272a;
+      color: #f4f4f5;
+      border: 1px solid #3f3f46;
+      border-radius: var(--radius-sm);
+      padding: 8px 10px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.15s;
+    }
+
+    .btn-sidebar:hover {
+      background: #3f3f46;
+    }
+
+    /* Main Content */
+    .wiki-main {
+      min-width: 0;
+      padding: 32px 44px 72px;
+      max-width: 1080px;
+    }
+
+    .mobile-topbar {
+      display: none;
+      position: sticky;
+      top: 0;
+      z-index: 35;
+      background: var(--sidebar-bg);
+      color: #ffffff;
+      padding: 12px 16px;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--sidebar-border);
+    }
+
+    .mobile-menu-btn {
+      background: #27272a;
+      color: #ffffff;
+      border: 1px solid #3f3f46;
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* Hero Header */
+    .wiki-hero {
+      background: linear-gradient(135deg, #09090b 0%, #1e293b 100%);
+      color: #ffffff;
+      border-radius: 16px;
+      padding: 32px 34px;
+      margin-bottom: 30px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .wiki-hero::after {
+      content: "";
+      position: absolute;
+      right: -40px;
+      top: -40px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .wiki-hero__eyebrow {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .wiki-hero h2 {
+      margin: 0 0 10px;
+      font-size: 28px;
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .wiki-hero p {
+      margin: 0 0 18px;
+      color: #cbd5e1;
+      max-width: 760px;
+      font-size: 15px;
+    }
+
+    .hero-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .hero-pill {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      color: #f8fafc;
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 999px;
+    }
+
+    /* Sections */
+    .wiki-section {
+      margin-bottom: 42px;
+      scroll-margin-top: 24px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .section-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: var(--dark);
+      color: var(--accent);
+      font-family: var(--font-mono);
+      font-weight: 800;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .section-header h3 {
+      margin: 0;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.015em;
+      color: var(--text);
+    }
+
+    /* Cards & Grids */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+
+    .card h4 {
+      margin: 0 0 10px;
+      font-size: 16.5px;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .card p:last-child,
+    .card ul:last-child,
+    .card ol:last-child {
+      margin-bottom: 0;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    /* Badges & Callouts */
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 3px 8px;
+      border-radius: 999px;
+      vertical-align: middle;
+    }
+
+    .badge-red { background: var(--red-soft); color: var(--red); border: 1px solid #fecaca; }
+    .badge-amber { background: var(--accent-soft); color: var(--accent-dark); border: 1px solid #fde68a; }
+    .badge-green { background: var(--green-soft); color: var(--green); border: 1px solid #a7f3d0; }
+    .badge-blue { background: var(--blue-soft); color: var(--blue); border: 1px solid #bfdbfe; }
+    .badge-dark { background: #18181b; color: #f8fafc; }
+
+    .callout {
+      border-radius: var(--radius-sm);
+      padding: 15px 18px;
+      margin: 14px 0;
+      border-left: 4px solid;
+      font-size: 14.5px;
+    }
+
+    .callout strong.callout-title {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14.5px;
+    }
+
+    .callout-danger {
+      background: var(--red-soft);
+      border-color: var(--red);
+      color: #7f1d1d;
+    }
+
+    .callout-warning {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: #78350f;
+    }
+
+    .callout-info {
+      background: var(--blue-soft);
+      border-color: var(--blue);
+      color: #1e3a8a;
+    }
+
+    .callout-success {
+      background: var(--green-soft);
+      border-color: var(--green);
+      color: #064e3b;
+    }
+
+    /* Menus / Paths */
+    .menu-path {
+      display: inline-block;
+      background: var(--surface-alt);
+      border: 1px solid #cbd5e1;
+      color: #0f172a;
+      font-weight: 700;
+      font-size: 13px;
+      padding: 2px 9px;
+      border-radius: 6px;
+      font-family: var(--font-sans);
+    }
+
+    code {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      background: #f1f5f9;
+      color: #be123c;
+      padding: 2px 6px;
+      border-radius: 5px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .code-box {
+      position: relative;
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      font-family: var(--font-mono);
+      font-size: 12.8px;
+      line-height: 1.5;
+      overflow-x: auto;
+      margin: 10px 0;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #334155;
+      color: #f8fafc;
+      border: 1px solid #475569;
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 11.5px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .copy-btn:hover {
+      background: #475569;
+    }
+
+    .copy-inline {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: #0f172a;
+      border-radius: 5px;
+      padding: 2px 7px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-left: 6px;
+    }
+
+    .copy-inline:hover {
+      background: #e2e8f0;
+    }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+      margin: 12px 0;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.8px;
+      background: var(--surface);
+    }
+
+    th {
+      background: #f8fafc;
+      text-align: left;
+      padding: 10px 14px;
+      font-weight: 700;
+      color: #334155;
+      border-bottom: 1px solid var(--border);
+    }
+
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* Steps List */
+    .step-list {
+      list-style: none;
+      padding: 0;
+      margin: 12px 0;
+      counter-reset: step-counter;
+    }
+
+    .step-list > li {
+      counter-increment: step-counter;
+      position: relative;
+      padding-left: 38px;
+      margin-bottom: 14px;
+    }
+
+    .step-list > li::before {
+      content: counter(step-counter);
+      position: absolute;
+      left: 0;
+      top: 1px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--dark);
+      color: #ffffff;
+      font-size: 12.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Interactive Checklist */
+    .checklist-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+
+    .progress-track {
+      flex: 1;
+      min-width: 180px;
+      height: 10px;
+      background: var(--surface-alt);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--green);
+      transition: width 0.25s ease;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 8px;
+      background: var(--surface);
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .checklist-item:hover {
+      background: #f8fafc;
+    }
+
+    .checklist-item.is-done {
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+    }
+
+    .checklist-item.is-done .check-title {
+      text-decoration: line-through;
+      color: var(--text-muted);
+    }
+
+    .checklist-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--green);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .check-title {
+      font-weight: 700;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .check-desc {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      display: block;
+    }
+
+    /* Accordion */
+    details {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+
+    summary {
+      padding: 13px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      background: #f8fafc;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "+";
+      font-family: var(--font-mono);
+      font-size: 18px;
+      color: var(--text-muted);
+    }
+
+    details[open] summary::after {
+      content: "−";
+    }
+
+    details[open] summary {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .details-body {
+      padding: 16px;
+    }
+
+    /* Search Empty State */
+    .search-empty {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+      background: var(--surface);
+      border: 1px dashed #cbd5e1;
+      border-radius: var(--radius);
+      color: var(--text-muted);
+    }
+
+    .is-hidden {
+      display: none !important;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px) {
+      .wiki-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .mobile-topbar {
+        display: flex;
+      }
+
+      .wiki-sidebar {
+        position: fixed;
+        left: -300px;
+        width: 280px;
+        transition: left 0.22s ease;
+      }
+
+      .wiki-sidebar.is-open {
+        left: 0;
+      }
+
+      .wiki-main {
+        padding: 20px 16px 56px;
+      }
+
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      .wiki-sidebar,
+      .mobile-topbar,
+      .copy-btn,
+      .copy-inline,
+      .btn-reset-check {
+        display: none !important;
+      }
+
+      .wiki-shell {
+        display: block;
+      }
+
+      .wiki-main {
+        max-width: 100%;
+        padding: 0;
+      }
+
+      details {
+        border: 1px solid #cbd5e1;
+      }
+
+      .card,
+      .wiki-hero {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mobile Topbar -->
+  <div class="mobile-topbar">
+    <div><strong>BIKE 21</strong> · Wiki Operacional</div>
+    <button type="button" class="mobile-menu-btn" id="mobileMenuBtn">Menu ☰</button>
+  </div>
+
+  <div class="wiki-shell">
+    <!-- Sidebar -->
+    <aside class="wiki-sidebar" id="wikiSidebar">
+      <div class="sidebar-brand">
+        <span class="sidebar-brand__badge">Manual Oficial</span>
+        <h1>Bike 21 · Wiki</h1>
+        <p>Guia completo de operação, pagamentos, frete e catálogo.</p>
+      </div>
+
+      <div class="sidebar-search">
+        <input type="search" id="wikiSearch" placeholder="Buscar na wiki... (ex: PIX, frete)" aria-label="Buscar na wiki" />
+      </div>
+
+      <nav class="sidebar-nav" aria-label="Navegação da Wiki">
+        <div class="nav-group-label">Primeiros Passos</div>
+        <a class="nav-link is-active" href="#sec-checklist"><span class="nav-num">01</span> Checklist Pré-Lançamento</a>
+        <a class="nav-link" href="#sec-acesso"><span class="nav-num">02</span> Acesso e Segurança</a>
+
+        <div class="nav-group-label">Pagamentos &amp; Frete</div>
+        <a class="nav-link" href="#sec-mercadopago"><span class="nav-num">03</span> Gateway Mercado Pago</a>
+        <a class="nav-link" href="#sec-melhorenvio"><span class="nav-num">04</span> Logística Melhor Envio</a>
+
+        <div class="nav-group-label">Operação da Loja</div>
+        <a class="nav-link" href="#sec-glossario"><span class="nav-num">05</span> Painel Glossário (Tema)</a>
+        <a class="nav-link" href="#sec-produtos"><span class="nav-num">06</span> Produtos, Estoque &amp; Cupons</a>
+        <a class="nav-link" href="#sec-pedidos"><span class="nav-num">07</span> Pedidos, Rastreio &amp; E-mails</a>
+
+        <div class="nav-group-label">Visual &amp; Manutenção</div>
+        <a class="nav-link" href="#sec-paginas"><span class="nav-num">08</span> Banners, Páginas &amp; Shortcodes</a>
+        <a class="nav-link" href="#sec-performance"><span class="nav-num">09</span> Cache, Imagens &amp; Boas Práticas</a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button type="button" class="btn-sidebar" onclick="window.print()">Imprimir / PDF</button>
+        <button type="button" class="btn-sidebar" id="expandAllBtn">Expandir Tudo</button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="wiki-main">
+      <!-- Hero -->
+      <header class="wiki-hero">
+        <div class="wiki-hero__eyebrow">Central de Documentação da Loja</div>
+        <h2>Manual Completo de Gestão — Bike 21</h2>
+        <p>
+          Este guia reúne tudo o que você precisa para configurar, lançar e operar sua loja virtual no dia a dia:
+          ativação real do <strong>Mercado Pago (Cartão e PIX)</strong>, conexão do <strong>Melhor Envio</strong>,
+          controle de preços, regras de frete grátis, cadastro de bicicletas com guia de tamanhos e edição do site.
+        </p>
+        <div class="hero-pills">
+          <span class="hero-pill">WordPress + WooCommerce</span>
+          <span class="hero-pill">Mercado Pago v8.10</span>
+          <span class="hero-pill">Melhor Envio v3.0.8</span>
+          <span class="hero-pill">Tema Base Store + Elementor</span>
+        </div>
+      </header>
+
+      <div id="searchEmpty" class="search-empty">
+        <strong>Nenhum tópico encontrado para a sua busca.</strong><br />
+        Limpe o campo de busca na barra lateral para visualizar todo o manual novamente.
+      </div>
+
+      <!-- SEÇÃO 01: CHECKLIST PRÉ-LANÇAMENTO -->
+      <section class="wiki-section" id="sec-checklist" data-searchable>
+        <div class="section-header">
+          <span class="section-num">01</span>
+          <h3>Checklist Obrigatório Antes de Abrir para Vendas</h3>
+        </div>
+
+        <div class="card">
+          <div class="callout callout-info">
+            <strong class="callout-title">Checklist de Conferência Antes de Vender</strong>
+            Antes de divulgar campanhas e receber pedidos reais, confirme cada etapa abaixo para garantir pagamentos,
+            fretes e segurança operando corretamente (seu progresso fica salvo neste navegador).
+          </div>
+
+          <div class="checklist-bar">
+            <strong id="checklistStatus" style="font-size: 13.5px;">0 de 8 concluídos</strong>
+            <div class="progress-track"><div class="progress-fill" id="checklistProgress"></div></div>
+            <button type="button" class="copy-inline btn-reset-check" id="resetChecklistBtn">Zerar Checklist</button>
+          </div>
+
+          <div id="launchChecklist">
+            <label class="checklist-item" data-check-id="chk-1">
+              <input type="checkbox" />
+              <span>
+                <span class="check-title">1. Conferir Endereço e CEP de Origem no WooCommerce <span class="badge badge-red">Crítico</span></span>
+                <span class="check-desc">Verifique se o endereço completo e o CEP de origem da loja estão preenchidos em <span class="menu-path">WooCommerce &gt; Configurações &gt; Geral</span>. Sem o CEP de origem, o cálculo de frete não funciona.</span>
+              </span>
+            </label>
+
+            <label class="checklist-item" data-check-id="chk-2">
+              <input type="checkbox" />
+              <span>
+                <span class="check-title">2. Conferir Credenciais de Produção do Mercado Pago <span class="badge badge-red">Crítico</span></span>
+                <span class="check-desc">Confirme que sua conta oficial está vinculada com credenciais de Produção e que a Etapa 4 está marcada como <strong>Modo Produção</strong> em <span class="menu-path">WooCommerce &gt; Mercado Pago</span>.</span>
+              </span>
+            </label>
+
+            <label class="checklist-item" data-check-id="chk-3">
+              <input type="checkbox" />
+              <span>
+                <span class="check-title">3. Conferir Regra Única de Desconto PIX (10% OFF) <span class="badge badge-amber">Atenção</span></span>
+                <span class="check-desc">Garanta que o campo de desconto dentro do plugin Mercado Pago PIX fique em <strong>0%</strong>, mantendo os 10% configurados exclusivamente no menu <span class="menu-path">Glossário</span> para não dar desconto duplo.</span>
+              </span>
+            </label>
+
+            <label class="checklist-item" data-check-id="chk-4">
+              <input type="checkbox" />
+              <span>
+                <span class="check-title">4. Conectar Conta Melhor Envio e Habilitar na Zona Brasil <span class="badge badge-red">Crítico</span></span>
+                <span class="check-desc">Acesse <span class="menu-path">WooCommerce &gt; Melhor Envio</span> (ou use o Integrador v3) para conectar sua conta e manter o método ativo nas zonas de entrega.</span>
+              </span>
+            </label>
+
+            <label class="checklist-item" data-check-id="chk-5">
+              <input type="checkbox" />
+              <span>
+                <span class="check-title">5. Conferir Unidades na "Retirada no Local" <span class="badge badge-amber">Ajuste</span></span>
+                <span class="check-desc">Em <span class="menu-path">WooCommerce &gt; Configurações &gt; Entrega &gt; Brasil</span>, confira se o método <em>Retirada na Loja Física</em> exibe corretamente os nomes das suas unidades (Tijuca, Ilha do Governador ou Grajaú).</span>
+              </span>
+            </label>
+
+            <label class="checklist-item" data-check-id="chk-6">
+              <input type="checkbox" />
+              <span>
+                <span class="check-title">6. Cadastrar Peso e Medidas em Todos os Produtos <span class="badge badge-red">Crítico</span></span>
+                <span class="check-desc">Verifique cada produto (aba <span class="menu-path">Entrega</span>) garantindo peso (kg), comprimento, largura e altura (cm) reais da caixa embalada para que o Melhor Envio faça cotações exatas.</span>
+              </span>
+            </label>
+
+            <label class="checklist-item" data-check-id="chk-7">
+              <input type="checkbox" />
+              <span>
+                <span class="check-title">7. Manter Senha Forte e E-mail Corporativo no Administrador <span class="badge badge-blue">Segurança</span></span>
+                <span class="check-desc">Em <span class="menu-path">Usuários &gt; Perfil</span>, certifique-se de que a conta administradora utiliza senha forte única e um e-mail corporativo ativo para recuperação de acesso.</span>
+              </span>
+            </label>
+
+            <label class="checklist-item" data-check-id="chk-8">
+              <input type="checkbox" />
+              <span>
+                <span class="check-title">8. Confirmar Domínio Oficial &amp; Testar Pedido Real <span class="badge badge-green">Validação</span></span>
+                <span class="check-desc">Com o domínio final apontado e SSL ativo, faça um pedido real de validação via PIX e Cartão e confirme se os e-mails transacionais chegam normalmente.</span>
+              </span>
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 02: ACESSO E SEGURANÇA -->
+      <section class="wiki-section" id="sec-acesso" data-searchable>
+        <div class="section-header">
+          <span class="section-num">02</span>
+          <h3>Acesso ao Painel, Usuários e Dados Básicos</h3>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h4>Como acessar o painel administrativo</h4>
+            <p>Para gerenciar pedidos, produtos e configurações, acesse a rota administrativa do WordPress no endereço da sua loja:</p>
+            <ul>
+              <li><strong>Exemplo de URL de acesso:</strong><br /><code>https://seudominio.com.br/wp-admin</code></li>
+              <li><strong>Gerenciamento de contas:</strong> Crie logins individuais para cada operador da equipe em <span class="menu-path">Usuários &gt; Adicionar novo</span> com a função <em>Gerente da Loja</em>.</li>
+              <li><strong>Boas práticas:</strong> Utilize senhas únicas, mantenha um e-mail corporativo válido no perfil e evite compartilhar o login principal.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h4>Configuração Inicial do WooCommerce <span class="badge badge-red">Obrigatório</span></h4>
+            <p>Acesse <span class="menu-path">WooCommerce &gt; Configurações &gt; Geral</span> e preencha:</p>
+            <ul>
+              <li><strong>Endereço da loja:</strong> Rua, número, bairro, cidade (Rio de Janeiro), CEP de postagem (ex: <code>20520-055</code>) e País/Estado (<code>Brasil — Rio de Janeiro</code>).</li>
+              <li><strong>Opções de moeda:</strong> Já configurado para <code>Real brasileiro (R$)</code>, separador de milhar <code>.</code> e decimal <code>,</code>.</li>
+              <li>Em <span class="menu-path">WooCommerce &gt; Configurações &gt; Produtos</span>, confirme que as unidades são <strong>kg</strong> (peso) e <strong>cm</strong> (dimensões).</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 03: GATEWAY MERCADO PAGO -->
+      <section class="wiki-section" id="sec-mercadopago" data-searchable>
+        <div class="section-header">
+          <span class="section-num">03</span>
+          <h3>Gateway de Pagamento: Mercado Pago (Cartão, PIX e Parcelas)</h3>
+        </div>
+
+        <div class="card">
+          <h4>Visão Geral do Fluxo</h4>
+          <p>
+            A loja usa o plugin oficial <strong>Mercado Pago v8.10.0</strong> integrado em modo <strong>Checkout Transparente</strong>
+            (o cliente digita o cartão ou lê o QR Code do PIX dentro do seu próprio checkout, sem sair do site).
+          </p>
+
+          <div class="callout callout-danger">
+            <strong class="callout-title">⚠️ Regra Crítica: Evite Desconto Duplo no PIX!</strong>
+            O tema da loja (<strong>Bike 21</strong>) já aplica automaticamente o desconto à vista (atualmente <strong>10% OFF</strong>)
+            nas vitrines, na página do produto, no carrinho e no checkout sempre que o método selecionado estiver listado em
+            <code>pix_gateway_ids</code> no menu <span class="menu-path">Glossário</span>.<br /><br />
+            <strong>O que fazer:</strong> Configure a porcentagem do desconto PIX apenas no menu <span class="menu-path">Glossário &gt; Seção C</span>.
+            Dentro das configurações do método PIX no plugin do Mercado Pago, mantenha o campo <strong>Desconto</strong> em <code>0</code> (zero),
+            caso contrário o cliente receberá 10% do tema + 10% do plugin no fechamento do pedido.
+          </div>
+        </div>
+
+        <div class="card">
+          <h4>Passo a Passo nas 4 Etapas do Mercado Pago</h4>
+          <p>Acesse no painel: <span class="menu-path">WooCommerce &gt; Mercado Pago</span>. A tela possui 4 blocos expansíveis:</p>
+
+          <ol class="step-list">
+            <li>
+              <strong>Etapa 1 — Credenciais (Vincular sua conta real):</strong><br />
+              Clique em <strong>Vincular conta</strong> (recomendado — login direto no Mercado Pago) ou preencha manualmente as chaves de <strong>Produção</strong>
+              (<code>Public Key</code> começando com <code>APP_USR-...</code> e <code>Access Token</code> começando com <code>APP_USR-...</code>) obtidas no painel
+              <em>Mercado Pago Developers &gt; Suas integrações</em>.<br />
+              <span style="color: var(--text-muted); font-size: 13.5px;">Nota: Mantenha também suas chaves de Teste preenchidas caso queira fazer simulações futuras em sandbox.</span>
+            </li>
+            <li>
+              <strong>Etapa 2 — Informações da Loja:</strong><br />
+              <ul>
+                <li><strong>Nome da loja na fatura:</strong> Digite um nome curto reconhecível (ex: <code>BIKE 21 RIO</code>) para evitar contestações (chargebacks) no cartão do cliente.</li>
+                <li><strong>Categoria da loja:</strong> Selecione <em>Esportes / Ciclismo</em> ou equivalente.</li>
+                <li><strong>Opções Avançadas:</strong> Só ative <em>Modo Debug</em> se estiver investigando alguma falha técnica. Deixe a URL de IPN/Webhook padrão funcionando (o SSL do site garante a confirmação automática de pagamentos PIX e Cartão).</li>
+              </ul>
+            </li>
+            <li>
+              <strong>Etapa 3 — Métodos de Pagamento (Cartão, PIX, Boleto):</strong><br />
+              Clique em <strong>Configurar meios de pagamento</strong> ou vá direto em <span class="menu-path">WooCommerce &gt; Configurações &gt; Pagamentos</span>.
+              Configure os métodos desejados:
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Método (ID Técnico)</th>
+                      <th>Status Recomendado</th>
+                      <th>Configurações Essenciais</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Cartão de Crédito Transparente</strong><br /><code>woo-mercado-pago-custom</code></td>
+                      <td><span class="badge badge-green">Ativo</span></td>
+                      <td>
+                        • <strong>Título:</strong> Cartão de Crédito<br />
+                        • <strong>Parcelas máximas:</strong> <code>12</code> (deve bater com o Glossário)<br />
+                        • <strong>Modo binário:</strong> <em>Não</em> (recomendado deixar análise antifraude aprovar pagamentos pendentes) ou <em>Sim</em> (aprova ou recusa na hora, sem pedidos "em análise").
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><strong>PIX Transparente</strong><br /><code>woo-mercado-pago-pix</code></td>
+                      <td><span class="badge badge-green">Ativo</span></td>
+                      <td>
+                        • <strong>Pré-requisito obrigatório:</strong> Ter pelo menos 1 <strong>Chave PIX cadastrada dentro do app/conta do Mercado Pago</strong> (sem chave lá, o checkout não gera QR Code).<br />
+                        • <strong>Expiração do código:</strong> <code>30</code> minutos.<br />
+                        • <strong>Desconto do gateway:</strong> Deixar em <code>0%</code> (pois o Glossário já aplica os 10%).
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><strong>Checkout Pro</strong><br /><code>woo-mercado-pago-basic</code></td>
+                      <td><span class="badge badge-blue">Opcional</span></td>
+                      <td>Redireciona o cliente para o site do Mercado Pago. Só ative se desejar oferecer saldo em conta MP ou mais de um meio combinado fora do checkout transparente.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Transferência / PIX Manual</strong><br /><code>bacs</code></td>
+                      <td><span class="badge badge-amber">Desativado</span></td>
+                      <td>Atualmente desligado para priorizar a baixa automática via Mercado Pago. Se ligar, exigirá conferência manual de comprovante antes de liberar o pedido.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </li>
+            <li>
+              <strong>Etapa 4 — Modo de Testes vs. Modo Produção:</strong><br />
+              Antes de receber clientes reais, certifique-se de que esta etapa esteja configurada como <strong>Modo Produção (Vendas Reais)</strong> e clique em <strong>Salvar alterações</strong>.
+              Mantenha o <em>Modo Teste</em> apenas durante homologações internas em ambiente controlado.
+            </li>
+          </ol>
+
+          <div class="callout callout-info">
+            <strong class="callout-title">💡 Como configurar Parcelamento Sem Juros</strong>
+            O parcelamento sem juros real cobrado do cliente no cartão é configurado dentro da sua <strong>conta do Mercado Pago</strong>
+            (<em>Seu Negócio &gt; Custos &gt; Parcelamento / Absorver juros até 12x</em>).
+            Após definir lá quantas parcelas sem juros sua loja absorve (ex.: 12x sem juros com parcela mínima de R$ 50), mantenha o mesmo número no
+            <span class="menu-path">Glossário &gt; Seção C &gt; Parcelamento</span> para que o valor exibido nos cards dos produtos bata exatamente com o checkout.
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 04: LOGÍSTICA MELHOR ENVIO -->
+      <section class="wiki-section" id="sec-melhorenvio" data-searchable>
+        <div class="section-header">
+          <span class="section-num">04</span>
+          <h3>Logística e Frete: Melhor Envio v3.0.8 &amp; Zonas de Entrega</h3>
+        </div>
+
+        <div class="card">
+          <h4>Como funciona a integração de frete neste site</h4>
+          <p>
+            O site combina o simulador de CEP nativo do tema (na página do produto e no carrinho) com o motor de Zonas do WooCommerce e o plugin
+            <strong>Melhor Envio v3.0.8</strong>. A cotação e emissão de etiquetas funcionam em 2 modos possíveis no plugin:
+          </p>
+          <ul>
+            <li><strong>Modo Novo (Melhor Integrador — Recomendado):</strong> Conecta sua conta Melhor Envio com poucos cliques dentro de <span class="menu-path">WooCommerce &gt; Melhor Envio</span>, sem precisar gerar ou colar token manualmente.</li>
+            <li><strong>Modo Legado:</strong> Caso o menu lateral exiba <span class="menu-path">Melhor Envio (Legado)</span>, recomenda-se clicar em <span class="menu-path">Plugins &gt; Melhor Envio &gt; Migrar para nova versão</span> para ativar o painel centralizado 3.0+.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h4>Passo a Passo para Ativar e Configurar o Melhor Envio</h4>
+          <ol class="step-list">
+            <li>
+              <strong>Criar/Validar Conta no Melhor Envio:</strong><br />
+              Acesse <code>melhorenvio.com.br</code>, cadastre seu CNPJ da loja (<code>BIKE 21 RIO COMÉRCIO...</code>), confirme o endereço de coleta/postagem e adicione saldo na carteira para pagar etiquetas quando houver vendas.
+            </li>
+            <li>
+              <strong>Conectar a Loja no Painel WordPress:</strong><br />
+              Se o plugin estiver em modo legado, vá em <span class="menu-path">Plugins &gt; Melhor Envio</span> e clique em <strong>Migrar para nova versão</strong>.<br />
+              Depois acesse <span class="menu-path">WooCommerce &gt; Melhor Envio</span>, clique em <strong>Conectar conta</strong>, autorize o acesso com seu login do Melhor Envio e salve o CEP de origem.
+            </li>
+            <li>
+              <strong>Escolher Transportadoras e Opções de Embalagem:</strong><br />
+              Dentro do painel do Melhor Envio, ative as transportadoras que suportam o porte dos seus produtos (ex.: <strong>Jadlog</strong>, <strong>Azul Cargo Express</strong>, <strong>Buslog</strong>, <strong>J&amp;T</strong>, <strong>Correios PAC/SEDEX</strong> para peças, acessórios e vestuário).<br />
+              <span style="color: var(--text-muted); font-size: 13.5px;">Atenção para bicicletas completas: caixas de bike frequentemente ultrapassam o limite de dimensões dos Correios (100 cm por lado), portanto mantenha transportadoras privadas como Jadlog ou Azul Cargo habilitadas.</span>
+            </li>
+            <li>
+              <strong>Verificar a Zona de Entrega "Brasil" no WooCommerce:</strong><br />
+              Acesse <span class="menu-path">WooCommerce &gt; Configurações &gt; Entrega &gt; Brasil</span>. Atualmente a zona possui 3 métodos configurados além do Melhor Envio:
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Método na Zona "Brasil"</th>
+                      <th>Configuração Atual</th>
+                      <th>O que verificar / ajustar</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Melhor Envio</strong> (<code>melhor_envio</code>)</td>
+                      <td><span class="badge badge-green">Dinâmico</span></td>
+                      <td>Aparece automaticamente ao conectar o Melhor Integrador. Calcula frete real por CEP + peso/dimensões dos produtos.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Frete Grátis</strong> (<code>free_shipping</code>)</td>
+                      <td><span class="badge badge-green">Ativo</span> (Mínimo R$ 1.000)</td>
+                      <td>Mantenha o valor mínimo idêntico ao campo <code>free_shipping_threshold</code> do menu <span class="menu-path">Glossário</span> (ex.: <code>1000</code>).</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Taxa Fixa</strong> (<code>flat_rate</code>)</td>
+                      <td><span class="badge badge-blue">Opcional</span> (R$ 89,90)</td>
+                      <td><em>Transportadora Nacional (Seguro Total)</em> — funciona como frete fixo contingencial. Desative ou ajuste caso queira exibir apenas as transportadoras do Melhor Envio.</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Retirada no Local</strong> (<code>local_pickup</code>)</td>
+                      <td><span class="badge badge-green">Ativo</span> (R$ 0)</td>
+                      <td>Edite o título e instruções caso queira detalhar as unidades disponíveis para retirada presencial (Tijuca, Ilha do Governador e Grajaú) ou criar um método por unidade.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </li>
+            <li>
+              <strong>Emissão de Etiquetas e Envio do XML da NF-e no Dia a Dia:</strong><br />
+              Quando um pedido for pago (status <em>Em processamento</em>):
+              <ul>
+                <li>Acesse <span class="menu-path">WooCommerce &gt; Melhor Envio</span> (aba de pedidos) ou abra o pedido em <span class="menu-path">WooCommerce &gt; Pedidos</span>.</li>
+                <li>Anexe o arquivo <strong>XML da NF-e</strong> (ou informe a chave de acesso da nota fiscal) — exigido pelas transportadoras privadas.</li>
+                <li>Selecione o pedido, envie para o carrinho do Melhor Envio, pague a etiqueta com seu saldo e imprima a etiqueta + declaração/DANFE simplificada.</li>
+                <li>Assim que a etiqueta for gerada/postada, o código de rastreio é salvo no pedido e passa a aparecer automaticamente para o cliente na página <code>/rastreio/</code>.</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 05: PAINEL CENTRAL GLOSSÁRIO -->
+      <section class="wiki-section" id="sec-glossario" data-searchable>
+        <div class="section-header">
+          <span class="section-num">05</span>
+          <h3>Painel Central da Loja: Menu "Glossário"</h3>
+        </div>
+
+        <div class="card">
+          <h4>Como funciona o menu Glossário</h4>
+          <p>
+            Todo texto institucional, regra comercial, desconto PIX, parcelamento, telefones, unidades e configuração dos filtros do site é controlado em um único lugar:
+            <span class="menu-path">Glossário &gt; Glossário &amp; Termos</span>.
+            Ao clicar em <strong>Salvar Termos e Configurações</strong>, o site atualiza todas as páginas automaticamente e limpa o cache do Elementor sem precisar editar código.
+          </p>
+
+          <details open>
+            <summary>Seção A — Identidade, Sede &amp; Atendimento</summary>
+            <div class="details-body">
+              <ul>
+                <li><strong>Nome Comercial / Razão Social / Slogan:</strong> Exibidos no cabeçalho, rodapé e termos legais.</li>
+                <li><strong>Locais / Cidades / Unidades (Repetidor):</strong> Atualmente cadastradas as 3 lojas RJ (Tijuca, Ilha do Governador e Grajaú).</li>
+                <li><strong>CNPJs da Loja (Repetidor):</strong> Lista os CNPJs exibidos no rodapé e políticas.</li>
+                <li><strong>Contatos de WhatsApp (Repetidor):</strong> Setor, Número com DDD e Link direto (<code>https://wa.me/55...</code>). O <strong>primeiro contato da lista</strong> é usado como WhatsApp principal dos botões flutuantes e suporte de produto/pedido.</li>
+                <li><strong>Prefixos de Mensagem WhatsApp:</strong> Texto pré-preenchido enviado quando o cliente clica em tirar dúvida na página de produto ou no rastreio do pedido.</li>
+                <li><strong>E-mails de Atendimento &amp; Assuntos do Contato:</strong> Os assuntos (1 por linha) alimentam o dropdown da página <em>Fale Conosco</em> (<code>/contato/</code>), e o primeiro e-mail cadastrado recebe as mensagens enviadas pelo formulário.</li>
+                <li><strong>Redes Sociais:</strong> URLs do Instagram, @handle, Facebook, YouTube e TikTok.</li>
+              </ul>
+            </div>
+          </details>
+
+          <details>
+            <summary>Seção B — Logística, Preparação &amp; Garantia</summary>
+            <div class="details-body">
+              <ul>
+                <li><strong>Textos de Envio (Topbar, Selo, Modal e Rodapé):</strong> Mensagens comerciais sobre envio segurado e logística reversa.</li>
+                <li><strong>Valor Mínimo Frete Grátis (R$):</strong> Campo numérico (<code>free_shipping_threshold</code>, atualmente <code>1000</code>). Controla o selo verde <em>Frete Grátis</em> nos cards dos produtos cujo preço atinja esse valor e o aviso na barra do carrinho.</li>
+                <li><strong>Bloco Preparação &amp; Diferenciais / Garantia:</strong> Textos exibidos nas páginas institucionais e seções da página de produto explicando a revisão técnica em bancada e garantia com NF-e.</li>
+              </ul>
+            </div>
+          </details>
+
+          <details>
+            <summary>Seção C — Pagamento, PIX &amp; Parcelamento</summary>
+            <div class="details-body">
+              <ul>
+                <li><strong>Desconto À Vista / PIX (%):</strong> Porcentagem aplicada automaticamente (ex.: <code>10</code>) nos preços à vista das vitrines e como desconto no checkout.</li>
+                <li><strong>IDs de Gateways para Desconto PIX:</strong> Lista separada por vírgula dos métodos que disparam esse desconto no checkout (<code>woo-mercado-pago-pix,bacs</code>). Não altere estes IDs técnicos a menos que adicione um novo plugin PIX.</li>
+                <li><strong>Chave / Beneficiário / Cidade PIX:</strong> Usados caso o método de PIX manual (<code>bacs</code>) seja utilizado para gerar QR Code estático.</li>
+                <li><strong>Parcelamento:</strong> <em>Máx. Parcelas</em> (<code>12</code>), <em>Parcela Mínima</em> (<code>50</code> — impede exibir "12x de R$ 3,00" em itens baratos) e <em>Rótulo</em> (<code>sem juros</code>).</li>
+              </ul>
+            </div>
+          </details>
+
+          <details>
+            <summary>Seção D — Catálogo, Atributos &amp; Busca</summary>
+            <div class="details-body">
+              <ul>
+                <li><strong>Banner Hero Desktop / Mobile (IDs):</strong> IDs numéricos da Biblioteca de Mídia para imagens de fallback caso não use o slider.</li>
+                <li><strong>Placeholder e Termos Populares de Busca:</strong> Chips de busca rápida exibidos abaixo do campo de busca (atualmente: <code>Scott,Oggi 7.3,Capacete MIPS,Carbono</code>).</li>
+                <li><strong>Slug da Taxonomia de Marca:</strong> <code>pa_marca</code> (exibe a marca acima do título nos cards).</li>
+                <li><strong>Atributos em Destaque nos Cards:</strong> Slugs separados por vírgula (<code>pa_aro,pa_material,pa_velocidades,pa_tamanho-vestuario</code>) — o card exibe até 3 pílulas de especificação automaticamente.</li>
+                <li><strong>Atributos Filtráveis na Barra Lateral:</strong> Controla quais filtros aparecem na página <code>/loja/</code> (<code>pa_marca,pa_tamanho-quadro,pa_tamanho-vestuario,pa_material,pa_aro,pa_velocidades,pa_suspensao,pa_genero</code>).</li>
+                <li><strong>Atributos Vinculados ao Guia de Medidas:</strong> Slugs que exibem automaticamente o botão <em>"Guia de Tamanhos"</em> na página do produto (<code>pa_tamanho-quadro,pa_tamanho-vestuario</code>).</li>
+              </ul>
+            </div>
+          </details>
+
+          <details>
+            <summary>Seção E — Tabela e Calculadora de Medidas (JSON)</summary>
+            <div class="details-body">
+              <p>Controla a calculadora interativa de altura do ciclista x tamanho do quadro (<code>S</code>, <code>M</code>, <code>L</code>, <code>XL</code>) exibida no modal dos produtos e na página <code>/guia-de-tamanhos/</code>.</p>
+              <p><strong>Cuidado ao editar:</strong> Como este campo usa formato <code>JSON</code>, nunca deixe vírgulas sobrando após o último item nem apague as aspas duplas (<code>"</code>). Se quiser testar um ajuste, copie o texto atual antes para ter backup.</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 06: PRODUTOS, ESTOQUE E CUPONS -->
+      <section class="wiki-section" id="sec-produtos" data-searchable>
+        <div class="section-header">
+          <span class="section-num">06</span>
+          <h3>Cadastro de Produtos, Variações, Estoque e Cupons</h3>
+        </div>
+
+        <div class="card">
+          <h4>Como cadastrar uma Bicicleta ou Acessório do jeito certo</h4>
+          <ol class="step-list">
+            <li>Acesse <span class="menu-path">Produtos &gt; Adicionar novo</span>.</li>
+            <li><strong>Título e Descrições:</strong> Use nome claro com marca e modelo (ex: <em>Bicicleta Scott Spark RC World Cup EVO</em>). Preencha a descrição longa (especificações completas) e a descrição curta (resumo de destaque).</li>
+            <li>
+              <strong>Tipo de Produto (Dados do Produto):</strong>
+              <ul>
+                <li><strong>Produto simples:</strong> Itens sem variação de tamanho/cor (ex: suporte de caramanhola, bomba).</li>
+                <li><strong>Produto variável:</strong> Bicicletas, capacetes ou vestuário com tamanhos (<code>S / M / L / XL</code>) ou cores. Cadastre primeiro os atributos na aba <strong>Atributos</strong> (marcando <em>Usado para variações</em>) e depois gere as variações na aba <strong>Variações</strong> definindo preço e estoque individual de cada tamanho.</li>
+              </ul>
+            </li>
+            <li><strong>Preços:</strong> Informe o <em>Preço normal</em> (e opcionalmente o <em>Preço promocional</em> — o site calcula o selo <code>% OFF</code> e o valor no PIX automaticamente).</li>
+            <li><strong>Estoque (Aba Inventário):</strong> Marque <em>Gerenciar estoque?</em> para controlar a quantidade real de cada variação e evitar venda sem saldo.</li>
+            <li><strong>Peso e Dimensões (Aba Entrega) <span class="badge badge-red">Obrigatório para Frete</span>:</strong> Preencha Peso (kg), Comprimento, Largura e Altura (cm) da embalagem fechada. Sem esses 4 números, o Melhor Envio não consegue cotar transportadoras.</li>
+            <li><strong>Atributos Técnicos (para Filtros e Badges nos Cards):</strong> Mesmo em produtos simples, adicione os atributos globais (Marca, Aro, Material, Velocidades, Suspensão, Gênero) para que o produto apareça corretamente nos filtros laterais da loja e mostre as especificações nos cards.</li>
+            <li><strong>Destacar Produto:</strong> Na lista <span class="menu-path">Produtos &gt; Todos os produtos</span>, clique no ícone da <strong>estrela (★)</strong> na coluna de destaque para marcar o produto como destaque (exibe o selo <code>Destaque</code> configurado no Glossário e entra nas vitrines de destaque da Home).</li>
+          </ol>
+        </div>
+
+        <div class="card">
+          <h4>Como Criar Cupons de Desconto</h4>
+          <p>Acesse <span class="menu-path">Marketing &gt; Cupons &gt; Adicionar cupom</span>:</p>
+          <ul>
+            <li>Defina o código em maiúsculas sem espaços (ex: <code>PRIMEIRABIKE</code>).</li>
+            <li>Escolha o <strong>Tipo de desconto</strong> (Desconto em porcentagem ou Desconto fixo no carrinho/produto).</li>
+            <li>Em <strong>Restrição de uso</strong>, você pode definir valor mínimo de compra, impedir uso cumulativo com outros cupons e limitar em <em>Limites de uso</em> a 1 uso por CPF/e-mail.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 07: PEDIDOS, RASTREIO E E-MAILS -->
+      <section class="wiki-section" id="sec-pedidos" data-searchable>
+        <div class="section-header">
+          <span class="section-num">07</span>
+          <h3>Gestão de Pedidos, Rastreamento e E-mails</h3>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h4>Fluxo de Status dos Pedidos</h4>
+            <p>Acompanhe as vendas em <span class="menu-path">WooCommerce &gt; Pedidos</span>:</p>
+            <ul>
+              <li><strong>Aguardando pagamento:</strong> Pedido criado (ex: PIX gerado aguardando o cliente pagar ou cartão em validação). <em>Não envie o produto ainda.</em></li>
+              <li><strong>Em processamento:</strong> Pagamento aprovado pelo Mercado Pago! É hora de separar, revisar a bike, emitir NF-e e gerar a etiqueta no Melhor Envio.</li>
+              <li><strong>Concluído:</strong> Pedido despachado / entregue ao cliente (mude manualmente após a coleta/retirada ou configure via integração logística).</li>
+              <li><strong>Cancelado / Pagamento recusado:</strong> PIX expirou sem pagamento (após 30 min) ou cartão negado. O estoque retorna automaticamente.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h4>Dados Fiscais Brasileiros &amp; Rastreio</h4>
+            <ul>
+              <li><strong>CPF/CNPJ, IE, Número e Bairro:</strong> Já são coletados nativamente no checkout e ficam visíveis dentro dos detalhes do pedido para emissão da NF-e.</li>
+              <li><strong>Página de Rastreamento (<code>/rastreio/</code>):</strong> O cliente informa o número do pedido e o e-mail de compra e visualiza a linha do tempo automática das etapas do pedido.</li>
+              <li><strong>Código de Rastreio:</strong> O sistema lê automaticamente o rastreio salvo pelo Melhor Envio (<code>_melhor_envio_tracking</code>) ou pelos campos padrão <code>_tracking_code</code> / <code>_correios_tracking_code</code>.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <h4>E-mails Transacionais da Loja</h4>
+          <p>
+            Configure o nome do remetente, e-mail de envio e textos dos e-mails enviados ao cliente (Novo Pedido, Pedido Processando, Pedido Concluído)
+            em <span class="menu-path">WooCommerce &gt; Configurações &gt; E-mails</span>.
+          </p>
+          <div class="callout callout-warning">
+            <strong class="callout-title">Dica de Entregabilidade (Evitar Caixa de Spam)</strong>
+            Certifique-se de que o "E-mail do remetente" seja um e-mail real do seu domínio final (ex: <code>pedidos@seudominio.com.br</code>). Caso note atrasos ou quedas no Spam ao usar e-mails externos, configure um plugin de <strong>SMTP</strong> (ex: WP Mail SMTP ou configuração SMTP da Hostinger).
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 08: BANNERS, PÁGINAS E SHORTCODES -->
+      <section class="wiki-section" id="sec-paginas" data-searchable>
+        <div class="section-header">
+          <span class="section-num">08</span>
+          <h3>Banners, Páginas Publicadas, Elementor &amp; Shortcodes</h3>
+        </div>
+
+        <div class="card">
+          <h4>Como trocar o Banner Principal da Home (Smart Slider 3)</h4>
+          <ol class="step-list">
+            <li>No menu lateral do WordPress, clique em <span class="menu-path">Smart Slider</span>.</li>
+            <li>Abra o Slider utilizado na Home (atualmente <strong>Slider ID 2</strong> — <em>Ofertas Especiais</em>).</li>
+            <li>Clique no slide existente para editar a imagem/link ou em <strong>Adicionar Slide</strong> para criar uma nova campanha promocional.</li>
+            <li>Salve o slider clicando em <strong>Salvar</strong> no canto superior direito.</li>
+          </ol>
+        </div>
+
+        <div class="card">
+          <h4>Mapa das Páginas Ativas no Site e Como Editá-las</h4>
+          <p>Páginas institucionais podem ser editadas visualmente clicando em <span class="menu-path">Páginas &gt; Editar com Elementor</span>. Evite apagar páginas que contêm os shortcodes do sistema:</p>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Página / Rota</th>
+                  <th>Função no Site</th>
+                  <th>Shortcode / Motor Principal</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>Início</strong> (<code>/</code>)</td><td>Página inicial com Hero Banner e vitrines</td><td>Elementor + Smart Slider <code>#2</code> + <code>[store_products]</code></td></tr>
+                <tr><td><strong>Loja</strong> (<code>/loja/</code>)</td><td>Catálogo completo com filtros laterais</td><td>WooCommerce Archive + motor <code>catalog-filters</code></td></tr>
+                <tr><td><strong>Buscar Produtos</strong> (<code>/busca/</code>)</td><td>Página dedicada de busca com termos populares</td><td><code>[store_product_search_page]</code></td></tr>
+                <tr><td><strong>Favoritos</strong> (<code>/favoritos/</code>)</td><td>Lista de desejos salva por usuário/cookie</td><td><code>[store_wishlist]</code></td></tr>
+                <tr><td><strong>Guia de Tamanhos</strong> (<code>/guia-de-tamanhos/</code>)</td><td>Calculadora interativa de Bike Fit</td><td><code>[store_size_guide mode="full"]</code></td></tr>
+                <tr><td><strong>Rastreamento</strong> (<code>/rastreio/</code>)</td><td>Consulta de status + linha do tempo do pedido</td><td><code>[store_order_tracking]</code></td></tr>
+                <tr><td><strong>Fale Conosco</strong> (<code>/contato/</code>)</td><td>Formulário enviado ao e-mail do Glossário</td><td><code>[store_contact_form]</code></td></tr>
+                <tr><td><strong>Carrinho / Checkout / Obrigado</strong></td><td>Funil de compras e confirmação pós-venda</td><td>WooCommerce + <code>[store_order_confirmation]</code></td></tr>
+                <tr><td><strong>Institucionais</strong></td><td><code>/sobre-nos/</code>, <code>/entrega-e-montagem/</code>, <code>/garantia-e-trocas/</code>, <code>/termos-de-uso/</code>, <code>/politica-de-privacidade/</code></td><td>Elementor + <code>[store_term key="..."]</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <h4>Shortcodes Disponíveis do Tema (Referência Rápida)</h4>
+          <p>Caso crie novas seções ou páginas no Elementor usando o widget <em>Shortcode</em>:</p>
+          <div class="code-box">
+            <button type="button" class="copy-btn" data-copy='[store_products title="Destaques" featured="true" limit="8" columns="4"]'>Copiar</button>
+[store_products title="Destaques" featured="true" limit="8" columns="4"]   &lt;!-- Vitrine de produtos (aceita categories="slug1,slug2" e tabs="all:Todos,mtb:MTB") --&gt;
+[store_term key="store_name"]                                             &lt;!-- Exibe qualquer dado cadastrado no Glossário --&gt;
+[store_locations_rotator]                                                 &lt;!-- Rotaciona as unidades físicas cadastradas no Glossário --&gt;
+[store_size_guide mode="full"]                                            &lt;!-- Exibe a calculadora/tabela de medidas (compact, full ou modal) --&gt;
+[store_order_tracking]                                                    &lt;!-- Formulário de rastreio de pedido --&gt;
+[store_contact_form]                                                      &lt;!-- Formulário de contato integrado ao Glossário --&gt;
+[store_wishlist]                                                          &lt;!-- Grade de produtos favoritados --&gt;
+[store_nav_menu]                                                          &lt;!-- Menu de navegação responsivo do tema --&gt;
+          </div>
+        </div>
+      </section>
+
+      <!-- SEÇÃO 09: PERFORMANCE E BOAS PRÁTICAS -->
+      <section class="wiki-section" id="sec-performance" data-searchable>
+        <div class="section-header">
+          <span class="section-num">09</span>
+          <h3>Cache, Imagens e Boas Práticas de Desempenho</h3>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <h4>Padrão de Imagens para Manter o Site Rápido</h4>
+            <ul>
+              <li><strong>Formato obrigatório:</strong> Prefira sempre enviar imagens em <strong><code>.webp</code></strong> (muito mais leves que PNG ou JPG com a mesma qualidade).</li>
+              <li><strong>Peso máximo recomendado:</strong>
+                <ul>
+                  <li>Fotos de produtos: até <strong>120 KB</strong> (ex.: <code>1000×1000 px</code>).</li>
+                  <li>Banners do Slider / Hero: até <strong>250 KB</strong> (ex.: <code>1920×650 px</code> desktop).</li>
+                </ul>
+              </li>
+              <li>Evite subir fotos diretamente da câmera com 3 MB – 8 MB, pois isso derruba a velocidade no celular.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h4>Limpeza de Cache Após Alterações Visuais</h4>
+            <ul>
+              <li><strong>Alterações no Glossário:</strong> O cache do Elementor é limpo automaticamente ao clicar em salvar.</li>
+              <li><strong>Alterações de Layout / CSS no Elementor:</strong> Se alterar o visual de uma página no Elementor e não vir a mudança na hora, vá em <span class="menu-path">Elementor &gt; Ferramentas &gt; Limpar arquivos e dados</span> (antigo Regenerar CSS).</li>
+              <li><strong>Domínio definitivo:</strong> Caso altere ou migre o domínio principal da loja no futuro, atualize as URLs em <span class="menu-path">Elementor &gt; Ferramentas &gt; Substituir URL</span> e salve novamente <span class="menu-path">Configurações &gt; Links Permanentes</span>.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var STORAGE_KEY = 'bike21_wiki_checklist_v1';
+
+      // 1. Mobile Sidebar Toggle
+      var sidebar = document.getElementById('wikiSidebar');
+      var mobileBtn = document.getElementById('mobileMenuBtn');
+      if (mobileBtn && sidebar) {
+        mobileBtn.addEventListener('click', function () {
+          sidebar.classList.toggle('is-open');
+        });
+      }
+
+      document.querySelectorAll('.nav-link').forEach(function (link) {
+        link.addEventListener('click', function () {
+          document.querySelectorAll('.nav-link').forEach(function (el) {
+            el.classList.remove('is-active');
+          });
+          link.classList.add('is-active');
+          if (sidebar) {
+            sidebar.classList.remove('is-open');
+          }
+        });
+      });
+
+      // 2. Scrollspy
+      var sections = Array.prototype.slice.call(document.querySelectorAll('.wiki-section'));
+      var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-link'));
+      if ('IntersectionObserver' in window && sections.length) {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              var id = entry.target.getAttribute('id');
+              navLinks.forEach(function (l) {
+                l.classList.toggle('is-active', l.getAttribute('href') === '#' + id);
+              });
+            }
+          });
+        }, { rootMargin: '-20% 0px -70% 0px' });
+
+        sections.forEach(function (sec) { observer.observe(sec); });
+      }
+
+      // 3. Real-time Search Filter
+      var searchInput = document.getElementById('wikiSearch');
+      var searchEmpty = document.getElementById('searchEmpty');
+
+      if (searchInput) {
+        searchInput.addEventListener('input', function () {
+          var query = searchInput.value.trim().toLowerCase();
+          var visibleCount = 0;
+
+          sections.forEach(function (sec) {
+            if (!query) {
+              sec.classList.remove('is-hidden');
+              visibleCount++;
+              return;
+            }
+            var text = (sec.textContent || '').toLowerCase();
+            var match = text.indexOf(query) !== -1;
+            sec.classList.toggle('is-hidden', !match);
+            if (match) {
+              visibleCount++;
+              sec.querySelectorAll('details').forEach(function (d) { d.open = true; });
+            }
+          });
+
+          if (searchEmpty) {
+            searchEmpty.style.display = visibleCount === 0 ? 'block' : 'none';
+          }
+        });
+      }
+
+      // 4. Expand / Collapse all accordions
+      var expandBtn = document.getElementById('expandAllBtn');
+      var allExpanded = false;
+      if (expandBtn) {
+        expandBtn.addEventListener('click', function () {
+          allExpanded = !allExpanded;
+          document.querySelectorAll('details').forEach(function (d) {
+            d.open = allExpanded;
+          });
+          expandBtn.textContent = allExpanded ? 'Recolher Tudo' : 'Expandir Tudo';
+        });
+      }
+
+      // 5. Copy buttons
+      document.querySelectorAll('[data-copy]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var val = btn.getAttribute('data-copy') || '';
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(val).then(function () {
+              var orig = btn.textContent;
+              btn.textContent = 'Copiado!';
+              setTimeout(function () { btn.textContent = orig; }, 1500);
+            });
+          }
+        });
+      });
+
+      // 6. Interactive Launch Checklist (persisted in localStorage)
+      var items = Array.prototype.slice.call(document.querySelectorAll('.checklist-item'));
+      var statusEl = document.getElementById('checklistStatus');
+      var progressEl = document.getElementById('checklistProgress');
+      var resetBtn = document.getElementById('resetChecklistBtn');
+
+      function loadState() {
+        try {
+          return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}') || {};
+        } catch (e) {
+          return {};
+        }
+      }
+
+      function saveState(state) {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (e) {}
+      }
+
+      function updateProgress() {
+        var total = items.length;
+        var done = 0;
+        items.forEach(function (item) {
+          var cb = item.querySelector('input[type="checkbox"]');
+          var checked = cb && cb.checked;
+          item.classList.toggle('is-done', !!checked);
+          if (checked) done++;
+        });
+        if (statusEl) {
+          statusEl.textContent = done + ' de ' + total + ' concluídos';
+        }
+        if (progressEl) {
+          progressEl.style.width = (total > 0 ? Math.round((done / total) * 100) : 0) + '%';
+        }
+      }
+
+      var saved = loadState();
+      items.forEach(function (item) {
+        var id = item.getAttribute('data-check-id');
+        var cb = item.querySelector('input[type="checkbox"]');
+        if (cb && id && saved[id]) {
+          cb.checked = true;
+        }
+        if (cb) {
+          cb.addEventListener('change', function () {
+            var st = loadState();
+            if (id) st[id] = cb.checked;
+            saveState(st);
+            updateProgress();
+          });
+        }
+      });
+      updateProgress();
+
+      if (resetBtn) {
+        resetBtn.addEventListener('click', function () {
+          items.forEach(function (item) {
+            var cb = item.querySelector('input[type="checkbox"]');
+            if (cb) cb.checked = false;
+          });
+          saveState({});
+          updateProgress();
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
