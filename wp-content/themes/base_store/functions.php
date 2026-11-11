@@ -34,6 +34,31 @@ add_action(
 );
 
 /**
+ * Adiciona preconnect para o Google Fonts acelerando a negociação DNS/TLS no navegador.
+ *
+ * @param array  $urls          URLs para resource hints.
+ * @param string $relation_type Tipo de hint ('preconnect', 'dns-prefetch', etc.).
+ * @return array
+ */
+add_filter(
+	'wp_resource_hints',
+	function ( array $urls, string $relation_type ): array {
+		if ( 'preconnect' === $relation_type ) {
+			$urls[] = array(
+				'href' => 'https://fonts.googleapis.com',
+			);
+			$urls[] = array(
+				'href'        => 'https://fonts.gstatic.com',
+				'crossorigin' => 'anonymous',
+			);
+		}
+		return $urls;
+	},
+	10,
+	2
+);
+
+/**
  * Enfileira fontes, folhas de estilo do Design System e script interativo unificado.
  */
 add_action(
@@ -279,20 +304,38 @@ if ( ! function_exists( 'store_get_active_template_id' ) ) {
 			return $resolved[ $template_type ];
 		}
 
-		$templates = get_posts(
-			array(
-				'post_type'      => 'elementor_library',
-				'post_status'    => 'publish',
-				'posts_per_page' => -1,
-				'orderby'        => 'ID',
-				'order'          => 'ASC',
-				'meta_key'       => '_elementor_template_type',
-				'meta_value'     => $template_type,
-				'fields'         => 'ids',
-			)
-		);
+		$transient_key = 'store_tpl_map_' . $template_type;
+		$tpl_map       = get_transient( $transient_key );
 
-		if ( empty( $templates ) ) {
+		if ( ! is_array( $tpl_map ) ) {
+			$templates = get_posts(
+				array(
+					'post_type'      => 'elementor_library',
+					'post_status'    => 'publish',
+					'posts_per_page' => -1,
+					'orderby'        => 'ID',
+					'order'          => 'ASC',
+					'meta_key'       => '_elementor_template_type',
+					'meta_value'     => $template_type,
+					'fields'         => 'ids',
+				)
+			);
+
+			$tpl_map = array();
+			if ( ! empty( $templates ) ) {
+				foreach ( $templates as $tpl_id ) {
+					$tpl_id     = (int) $tpl_id;
+					$conditions = get_post_meta( $tpl_id, '_elementor_conditions', true );
+					if ( is_array( $conditions ) ) {
+						$tpl_map[ $tpl_id ] = $conditions;
+					}
+				}
+			}
+
+			set_transient( $transient_key, $tpl_map, DAY_IN_SECONDS );
+		}
+
+		if ( empty( $tpl_map ) ) {
 			if ( did_action( 'wp' ) ) {
 				$resolved[ $template_type ] = 0;
 			}
@@ -303,13 +346,8 @@ if ( ! function_exists( 'store_get_active_template_id' ) ) {
 		$page_match    = 0;
 		$general_match = 0;
 
-		foreach ( $templates as $tpl_id ) {
-			$tpl_id     = (int) $tpl_id;
-			$conditions = get_post_meta( $tpl_id, '_elementor_conditions', true );
-			if ( ! is_array( $conditions ) ) {
-				continue;
-			}
-
+		foreach ( $tpl_map as $tpl_id => $conditions ) {
+			$tpl_id = (int) $tpl_id;
 			foreach ( $conditions as $cond ) {
 				if ( 'include/general/front_page' === $cond && is_front_page() && 0 === $front_match ) {
 					$front_match = $tpl_id;
@@ -330,6 +368,27 @@ if ( ! function_exists( 'store_get_active_template_id' ) ) {
 		return $match;
 	}
 }
+
+/**
+ * Invalida o cache transitório de mapeamento Header/Footer ao alterar modelos da biblioteca Elementor.
+ */
+add_action(
+	'save_post_elementor_library',
+	function () {
+		delete_transient( 'store_tpl_map_header' );
+		delete_transient( 'store_tpl_map_footer' );
+	}
+);
+
+add_action(
+	'deleted_post',
+	function ( int $post_id ) {
+		if ( 'elementor_library' === get_post_type( $post_id ) ) {
+			delete_transient( 'store_tpl_map_header' );
+			delete_transient( 'store_tpl_map_footer' );
+		}
+	}
+);
 
 if ( ! function_exists( 'store_render_active_template' ) ) {
 	/**
