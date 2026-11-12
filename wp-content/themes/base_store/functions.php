@@ -108,6 +108,20 @@ add_action(
 				wp_enqueue_script( 'wc-add-to-cart-variation' );
 			}
 
+			// Reaproveita o Swiper nativo do Elementor na Home para os carrosséis mobile sem bibliotecas externas.
+			if ( ( is_front_page() || is_page( 15 ) ) && class_exists( '\\Elementor\\Plugin' ) ) {
+				if ( wp_style_is( 'swiper', 'registered' ) ) {
+					wp_enqueue_style( 'swiper' );
+				}
+				if ( wp_style_is( 'e-swiper', 'registered' ) ) {
+					wp_enqueue_style( 'e-swiper' );
+				}
+				if ( wp_script_is( 'swiper', 'registered' ) ) {
+					wp_enqueue_script( 'swiper' );
+					$deps[] = 'swiper';
+				}
+			}
+
 			wp_enqueue_script(
 				'store-frontend',
 				$uri . '/assets/js/store-frontend.js',

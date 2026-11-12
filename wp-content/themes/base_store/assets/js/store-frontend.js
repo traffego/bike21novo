@@ -1580,6 +1580,235 @@
     }, 3600);
   }
 
+  /* ========================================================================
+     CARROSSÉIS MOBILE DA HOME (BENEFÍCIOS & CATEGORIAS EM DESTAQUE)
+     Utiliza o Swiper nativo do Elementor somente abaixo de 768px.
+     ========================================================================== */
+  function createSwiperControls(prevLabel, nextLabel) {
+    var controls = document.createElement('div');
+    controls.className = 'ds-mobile-swiper-controls';
+
+    var prevBtn = document.createElement('button');
+    prevBtn.type = 'button';
+    prevBtn.className = 'ds-mobile-swiper-btn ds-mobile-swiper-btn--prev';
+    prevBtn.setAttribute('aria-label', prevLabel);
+    prevBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>';
+
+    var dots = document.createElement('div');
+    dots.className = 'swiper-pagination ds-mobile-swiper-dots';
+
+    var nextBtn = document.createElement('button');
+    nextBtn.type = 'button';
+    nextBtn.className = 'ds-mobile-swiper-btn ds-mobile-swiper-btn--next';
+    nextBtn.setAttribute('aria-label', nextLabel);
+    nextBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>';
+
+    controls.appendChild(prevBtn);
+    controls.appendChild(dots);
+    controls.appendChild(nextBtn);
+
+    return {
+      controls: controls,
+      prevBtn: prevBtn,
+      dots: dots,
+      nextBtn: nextBtn
+    };
+  }
+
+  function initHomeMobileSwipers() {
+    if (
+      document.body.classList.contains('elementor-editor-active') ||
+      document.body.classList.contains('elementor-editor-preview') ||
+      window.location.search.indexOf('elementor-preview=') !== -1
+    ) {
+      return;
+    }
+
+    if (typeof window.Swiper !== 'function') return;
+
+    var trustContainer = document.querySelector('.elementor-element-hmpc999f');
+    var catContainer = document.querySelector('.elementor-element-hmc9b283');
+    if (!trustContainer && !catContainer) return;
+
+    var mq = window.matchMedia('(max-width: 767px)');
+    var trustState = null;
+    var catState = null;
+
+    function destroyTrustSwiper() {
+      if (!trustState) return;
+      if (trustState.swiper && typeof trustState.swiper.destroy === 'function') {
+        trustState.swiper.destroy(true, true);
+      }
+      trustContainer.classList.remove('swiper', 'ds-mobile-swiper-active');
+      if (trustState.controls && trustState.controls.parentNode === trustContainer) {
+        trustState.controls.remove();
+      }
+      if (trustState.wrapper && trustState.wrapper.parentNode === trustContainer) {
+        trustState.wrapper.remove();
+      }
+      trustState.items.forEach(function (item) {
+        item.classList.remove('swiper-slide', 'ds-trust-slide');
+        item.style.width = '';
+        item.style.marginRight = '';
+        trustContainer.appendChild(item);
+      });
+      trustState = null;
+    }
+
+    function mountTrustSwiper() {
+      if (!trustContainer || trustState) return;
+      var items = Array.prototype.slice.call(
+        trustContainer.querySelectorAll(':scope > .elementor-widget-icon-box')
+      );
+      if (items.length < 2) return;
+
+      var wrapper = document.createElement('div');
+      wrapper.className = 'swiper-wrapper';
+
+      items.forEach(function (item) {
+        item.classList.add('swiper-slide', 'ds-trust-slide');
+        wrapper.appendChild(item);
+      });
+
+      var ui = createSwiperControls('Benefício anterior', 'Próximo benefício');
+      trustContainer.appendChild(wrapper);
+      trustContainer.appendChild(ui.controls);
+      trustContainer.classList.add('swiper', 'ds-mobile-swiper-active');
+
+      var instance = new window.Swiper(trustContainer, {
+        slidesPerView: 1,
+        spaceBetween: 12,
+        loop: true,
+        speed: 650,
+        grabCursor: true,
+        watchOverflow: true,
+        autoplay: {
+          delay: 3200,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true
+        },
+        pagination: {
+          el: ui.dots,
+          clickable: true
+        },
+        navigation: {
+          prevEl: ui.prevBtn,
+          nextEl: ui.nextBtn
+        }
+      });
+
+      trustState = {
+        swiper: instance,
+        wrapper: wrapper,
+        controls: ui.controls,
+        items: items
+      };
+    }
+
+    function destroyCatSwiper() {
+      if (!catState) return;
+      if (catState.swiper && typeof catState.swiper.destroy === 'function') {
+        catState.swiper.destroy(true, true);
+      }
+      catContainer.classList.remove('swiper', 'ds-cat-mobile-swiper-active');
+      if (catState.controls && catState.controls.parentNode === catContainer) {
+        catState.controls.remove();
+      }
+      if (catState.wrapper && catState.wrapper.parentNode === catContainer) {
+        catState.wrapper.remove();
+      }
+      catState.items.forEach(function (item) {
+        catContainer.appendChild(item);
+      });
+      catState = null;
+    }
+
+    function mountCatSwiper() {
+      if (!catContainer || catState) return;
+      var items = Array.prototype.slice.call(
+        catContainer.querySelectorAll(':scope > .elementor-widget-icon-box')
+      );
+      if (items.length < 5) return;
+
+      // Agrupa em colunas de 2 linhas (para 6 categorias: 3 colunas x 2 linhas, exibindo 2x2 e 1 coluna oculta)
+      var columns = [];
+      if (items.length === 6) {
+        columns.push([items[0], items[2]]);
+        columns.push([items[1], items[3]]);
+        columns.push([items[4], items[5]]);
+      } else {
+        for (var i = 0; i < items.length; i += 2) {
+          columns.push(items.slice(i, i + 2));
+        }
+      }
+
+      var wrapper = document.createElement('div');
+      wrapper.className = 'swiper-wrapper';
+
+      columns.forEach(function (pair) {
+        var colSlide = document.createElement('div');
+        colSlide.className = 'swiper-slide ds-cat-col-slide';
+        pair.forEach(function (card) {
+          colSlide.appendChild(card);
+        });
+        wrapper.appendChild(colSlide);
+      });
+
+      var ui = createSwiperControls('Categorias anteriores', 'Próximas categorias');
+      catContainer.appendChild(wrapper);
+      catContainer.appendChild(ui.controls);
+      catContainer.classList.add('swiper', 'ds-cat-mobile-swiper-active');
+
+      var instance = new window.Swiper(catContainer, {
+        slidesPerView: 2,
+        slidesPerGroup: 1,
+        spaceBetween: 12,
+        loop: true,
+        loopedSlides: columns.length,
+        speed: 650,
+        grabCursor: true,
+        watchOverflow: true,
+        autoplay: {
+          delay: 3600,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true
+        },
+        pagination: {
+          el: ui.dots,
+          clickable: true
+        },
+        navigation: {
+          prevEl: ui.prevBtn,
+          nextEl: ui.nextBtn
+        }
+      });
+
+      catState = {
+        swiper: instance,
+        wrapper: wrapper,
+        controls: ui.controls,
+        items: items
+      };
+    }
+
+    function syncSwipers() {
+      if (mq.matches) {
+        mountTrustSwiper();
+        mountCatSwiper();
+      } else {
+        destroyTrustSwiper();
+        destroyCatSwiper();
+      }
+    }
+
+    syncSwipers();
+    if (typeof mq.addEventListener === 'function') {
+      mq.addEventListener('change', syncSwipers);
+    } else if (typeof mq.addListener === 'function') {
+      mq.addListener(syncSwipers);
+    }
+  }
+
   function initContactForm() {
     document.addEventListener('submit', function (e) {
       var form = e.target.closest('.ds-contact-form');
@@ -1634,6 +1863,7 @@
     initThankYouPix();
     initContactForm();
     initMobileTopbarTicker();
+    initHomeMobileSwipers();
 
     if (window.jQuery) {
       window.jQuery(document.body).on('added_to_cart removed_from_cart wc_fragments_refreshed wc_fragments_loaded', function (e, fragments) {

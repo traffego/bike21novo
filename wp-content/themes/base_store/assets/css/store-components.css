@@ -5584,4 +5584,138 @@ svg.ds-nav-icon {
   }
 }
 
+/* ==========================================================================
+   HOME MOBILE SWIPER: CARDS DE CONFIANÇA & CATEGORIAS EM DESTAQUE (<= 767px)
+   Reaproveita o Swiper nativo do Elementor sem alterar desktop ou tablet.
+   ========================================================================== */
+@media (max-width: 767px) {
+  .elementor-element-hmpc999f.ds-mobile-swiper-active,
+  .elementor-element-hmc9b283.ds-cat-mobile-swiper-active {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow: hidden !important;
+    position: relative !important;
+    --gap: 0px !important;
+    --row-gap: 0px !important;
+    --column-gap: 0px !important;
+    padding: 2px 0 4px !important;
+  }
+
+  .elementor-element-hmpc999f.ds-mobile-swiper-active > .swiper-wrapper,
+  .elementor-element-hmc9b283.ds-cat-mobile-swiper-active > .swiper-wrapper {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+    width: 100%;
+    box-sizing: content-box !important;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1) !important;
+  }
+
+  .elementor-element-hmpc999f.ds-mobile-swiper-active .ds-trust-slide.swiper-slide {
+    height: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .elementor-element-hmpc999f.ds-mobile-swiper-active .ds-trust-slide > .elementor-icon-box-wrapper {
+    width: 100%;
+  }
+
+  .elementor-element-hmc9b283.ds-cat-mobile-swiper-active .ds-cat-col-slide.swiper-slide {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    height: auto !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .elementor-element-hmc9b283.ds-cat-mobile-swiper-active .ds-cat-col-slide > .elementor-widget-icon-box {
+    width: 100% !important;
+    max-width: 100% !important;
+    --container-widget-width: 100% !important;
+    --flex-grow: 1;
+    --flex-shrink: 1;
+    flex: 1 1 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .ds-mobile-swiper-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 12px;
+    width: 100%;
+  }
+
+  .ds-mobile-swiper-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border-radius: var(--ds-radius-pill);
+    background-color: #ffffff;
+    border: 1px solid var(--ds-slate-200);
+    color: var(--ds-zinc-900);
+    cursor: pointer;
+    box-shadow: var(--ds-shadow-xs);
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+    flex-shrink: 0;
+  }
+
+  .ds-mobile-swiper-btn:active {
+    background-color: var(--ds-amber-50);
+    border-color: var(--ds-amber-400);
+    transform: scale(0.94);
+  }
+
+  .ds-mobile-swiper-dots.swiper-pagination {
+    position: static !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: auto !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin: 0 !important;
+    padding: 0;
+  }
+
+  .ds-mobile-swiper-dots .swiper-pagination-bullet {
+    width: 7px;
+    height: 7px;
+    border-radius: var(--ds-radius-pill);
+    background-color: var(--ds-slate-300);
+    opacity: 1;
+    margin: 0 !important;
+    transition: width 0.25s ease, background-color 0.25s ease;
+    cursor: pointer;
+  }
+
+  .ds-mobile-swiper-dots .swiper-pagination-bullet-active {
+    width: 20px;
+    background-color: var(--ds-amber-500);
+  }
+}
+
+@media (min-width: 768px) {
+  .ds-mobile-swiper-controls {
+    display: none !important;
+  }
+}
 
