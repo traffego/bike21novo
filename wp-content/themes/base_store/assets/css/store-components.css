@@ -5659,27 +5659,66 @@ svg.ds-nav-icon {
     width: 100%;
   }
 
-  .ds-mobile-swiper-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    padding: 0;
-    border-radius: var(--ds-radius-pill);
-    background-color: #ffffff;
-    border: 1px solid var(--ds-slate-200);
-    color: var(--ds-zinc-900);
+  body.elementor-kit-4 .ds-mobile-swiper-controls button.ds-mobile-swiper-btn,
+  body .ds-mobile-swiper-controls button.ds-mobile-swiper-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    min-height: 30px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: var(--ds-radius-pill) !important;
+    background-color: #ffffff !important;
+    border: 1px solid var(--ds-slate-200) !important;
+    color: var(--ds-zinc-900) !important;
+    font-size: 0 !important;
+    line-height: 1 !important;
     cursor: pointer;
-    box-shadow: var(--ds-shadow-xs);
-    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
-    flex-shrink: 0;
+    box-shadow: var(--ds-shadow-xs) !important;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    flex-shrink: 0 !important;
+    box-sizing: border-box !important;
   }
 
-  .ds-mobile-swiper-btn:active {
-    background-color: var(--ds-amber-50);
-    border-color: var(--ds-amber-400);
+  body.elementor-kit-4 .ds-mobile-swiper-controls button.ds-mobile-swiper-btn:hover,
+  body.elementor-kit-4 .ds-mobile-swiper-controls button.ds-mobile-swiper-btn:focus,
+  body .ds-mobile-swiper-controls button.ds-mobile-swiper-btn:hover,
+  body .ds-mobile-swiper-controls button.ds-mobile-swiper-btn:focus {
+    background-color: #ffffff !important;
+    border-color: var(--ds-slate-200) !important;
+    color: var(--ds-zinc-900) !important;
+  }
+
+  body.elementor-kit-4 .ds-mobile-swiper-controls button.ds-mobile-swiper-btn:focus-visible,
+  body .ds-mobile-swiper-controls button.ds-mobile-swiper-btn:focus-visible {
+    background-color: var(--ds-amber-50) !important;
+    border-color: var(--ds-amber-400) !important;
+    color: var(--ds-zinc-900) !important;
+    outline: 2px solid var(--ds-amber-500) !important;
+    outline-offset: 2px;
+  }
+
+  body.elementor-kit-4 .ds-mobile-swiper-controls button.ds-mobile-swiper-btn:active,
+  body .ds-mobile-swiper-controls button.ds-mobile-swiper-btn:active {
+    background-color: var(--ds-amber-50) !important;
+    border-color: var(--ds-amber-400) !important;
+    color: var(--ds-zinc-900) !important;
     transform: scale(0.94);
+  }
+
+  .ds-mobile-swiper-controls button.ds-mobile-swiper-btn svg {
+    width: 14px !important;
+    height: 14px !important;
+    min-width: 14px !important;
+    min-height: 14px !important;
+    display: block !important;
+    flex-shrink: 0 !important;
+    stroke: currentColor !important;
+    fill: none !important;
+    pointer-events: none;
   }
 
   .ds-mobile-swiper-dots.swiper-pagination {
@@ -5710,6 +5749,15 @@ svg.ds-nav-icon {
   .ds-mobile-swiper-dots .swiper-pagination-bullet-active {
     width: 20px;
     background-color: var(--ds-amber-500);
+  }
+}
+
+@media (max-width: 767px) and (hover: hover) {
+  body.elementor-kit-4 .ds-mobile-swiper-controls button.ds-mobile-swiper-btn:hover,
+  body .ds-mobile-swiper-controls button.ds-mobile-swiper-btn:hover {
+    background-color: var(--ds-amber-50) !important;
+    border-color: var(--ds-amber-400) !important;
+    color: var(--ds-zinc-900) !important;
   }
 }
 
